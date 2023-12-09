@@ -1,0 +1,10 @@
+RESOLUTION = [400, 225]
+TARGET_FPS = 120
+TITLE = "Pygame Template"
+
+ASSET_PATH = "assets"
+AUDIO_PATH = "audio"
+FONT_PATH = "fonts"
+IMAGE_PATH = "images"
+
+DATA_PATH = "data"

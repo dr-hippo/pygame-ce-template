@@ -1,0 +1,19 @@
+/__pycache__/
+
+# PyCharm internal folder
+/.idea/
+
+# PyInstaller build folders/files
+/build/
+/dist/
+*.spec
+
+# Virtual environment folders/files
+pyvenv.cfg
+/Include/
+/Lib/
+/Scripts/
+
+# Unexported file types
+*.ceol
+*.xcf
