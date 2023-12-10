@@ -2,6 +2,15 @@
 
 Basic [pygame-ce](https://pyga.me) template with prewritten boilerplate and some useful classes.
 
+To run, navigate to the template folder from the command line and run:
+````commandline
+py game.py
+````
+or
+````commandline
+py .
+````
+
 ## Features:
 - Basic TOML configuration file
 - Scene system (TODO)

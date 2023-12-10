@@ -10,6 +10,7 @@ import sys
 import ctypes
 
 import config as cfg
+import utilities as utils
 
 
 def main():
@@ -24,9 +25,10 @@ def main():
     # Initialisation
     pygame.init()
 
-    pygame.display.set_caption(cfg.TITLE)
-    window = pygame.display.set_mode(cfg.RESOLUTION, pygame.SCALED | pygame.FULLSCREEN)
+    pygame.display.set_caption(f"{cfg.APPNAME} - {cfg.AUTHOR}")
+    window = pygame.display.set_mode(cfg.RESOLUTION, pygame.SCALED | pygame.RESIZABLE)
     clock = pygame.time.Clock()
+    img = utils.load_image("does-not-exist")
 
     font = pygame.font.SysFont("consolas", 40, italic=True)
     font.align = pygame.FONT_RIGHT
@@ -44,6 +46,7 @@ def main():
             font.render("Hello world\nThis is a\nPygame Template", True, "black"),
             (10, 25)
         )
+        window.blit(img,(100, 100))
         pygame.display.update()
         clock.tick(cfg.TARGET_FPS)
 
