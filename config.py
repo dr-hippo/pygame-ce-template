@@ -6,7 +6,7 @@ import tomlkit
 
 import utilities as utils
 
-with open(os.path.join(utils.CURRENTPATH, "config.toml")) as file:
+with open(os.path.join(utils.get_current_path(), "data", "config.toml")) as file:
     document = tomlkit.load(file)
     for key in document.keys():
         globals()[key] = document[key]
