@@ -32,8 +32,7 @@ def main():
     sound = utils.load_sound("sample")
     sound.play(loops=4)
 
-    font = pygame.font.Font(r"assets\fonts\m6x11.ttf", 48)
-    font.align = pygame.FONT_RIGHT
+    font = utils.load_font("m6x11", size=48, align=pygame.FONT_RIGHT, underline=True)
 
     # Event/update/render loop
     while True:

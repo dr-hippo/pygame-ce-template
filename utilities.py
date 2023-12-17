@@ -28,7 +28,7 @@ def load_image(*pathparts: str, filetype: str = "png", essential: bool = False) 
 
     :param pathparts: Subfolders leading to file and filename, local to config.IMAGE_PATH.
     :param filetype: Image filetype. Defaults to PNG.
-    :param essential: Whether to raise error when file is not found or return placeholder surface.
+    :param essential: Whether to raise error when image is not found or return placeholder surface.
     :return: Loaded surface
     """
     subfolders = os.path.join(cfg.ASSET_PATH, cfg.IMAGE_PATH, *pathparts[:-1])
@@ -60,7 +60,7 @@ def load_sound(*pathparts: str, filetype: str = "mp3", essential: bool = False) 
 
     :param pathparts: Subfolders leading to file and filename, local to config.AUDIO_PATH.
     :param filetype: Audio filetype. Defaults to MP3.
-    :param essential: Whether to raise error when file is not found or return None.
+    :param essential: Whether to raise error when sound is not found or return None.
     :return: Loaded sound
     """
     subfolders = os.path.join(cfg.ASSET_PATH, cfg.AUDIO_PATH, *pathparts[:-1])
@@ -77,3 +77,39 @@ def load_sound(*pathparts: str, filetype: str = "mp3", essential: bool = False) 
 
         else:
             return None
+
+
+def load_font(*pathparts: str, filetype: str = "ttf", size: int = 16, essential: bool = False, **styleattrs) \
+        -> pygame.font.Font:
+    """
+    Loads font from font file at specified path and sets style flags.
+
+    :param pathparts: Subfolders leading to file and filename, local to config.FONT_PATH.
+    :param filetype: Audio filetype. Defaults to TTF.
+    :param size: Height of the font in pixels.
+    :param essential: Whether to raise error when font is not found, or return a similar system font or the default
+    pygame font.
+    :param styleattrs: Sets the font's style attributes. See https://pyga.me/docs/ref/font.html#pygame.font.Font for
+    details.
+    :return: Loaded font
+    """
+    subfolders = os.path.join(cfg.ASSET_PATH, cfg.FONT_PATH, *pathparts[:-1])
+    name = pathparts[-1] + os.extsep + filetype
+    fullpath = os.path.join(get_current_path(), subfolders, name)
+
+    try:
+        font = pygame.font.Font(fullpath, size)
+
+    except FileNotFoundError as error:
+        if essential:
+            raise error
+
+        else:
+            # Try finding a system font with the filename; this defaults to pygame's default if not found
+            font = pygame.font.SysFont(pathparts[-1], size)
+
+    finally:
+        # Set style attributes
+        for key in styleattrs:
+            setattr(font, key, styleattrs[key])
+        return font
