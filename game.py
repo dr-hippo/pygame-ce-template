@@ -29,6 +29,7 @@ def main():
     window = pygame.display.set_mode(cfg.RESOLUTION, pygame.SCALED | pygame.RESIZABLE)
     clock = pygame.time.Clock()
     img = utils.load_image("does-not-exist")
+    sound = utils.load_sound("test")
 
     font = pygame.font.SysFont("consolas", 40, italic=True)
     font.align = pygame.FONT_RIGHT
@@ -46,7 +47,7 @@ def main():
             font.render("Hello world\nThis is a\nPygame Template", True, "black"),
             (10, 25)
         )
-        window.blit(img,(100, 100))
+        window.blit(img, (100, 100))
         pygame.display.update()
         clock.tick(cfg.TARGET_FPS)
 
