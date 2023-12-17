@@ -28,10 +28,11 @@ def main():
     pygame.display.set_caption(f"{cfg.APPNAME} - {cfg.AUTHOR}")
     window = pygame.display.set_mode(cfg.RESOLUTION, pygame.SCALED | pygame.RESIZABLE)
     clock = pygame.time.Clock()
-    img = utils.load_image("does-not-exist")
-    sound = utils.load_sound("test")
+    img = utils.load_image("sample", filetype="jpg")
+    sound = utils.load_sound("sample")
+    sound.play(loops=4)
 
-    font = pygame.font.SysFont("consolas", 40, italic=True)
+    font = pygame.font.Font(r"assets\fonts\m6x11.ttf", 48)
     font.align = pygame.FONT_RIGHT
 
     # Event/update/render loop
@@ -43,11 +44,11 @@ def main():
         pygame.event.get()
 
         window.fill("white")
+        window.blit(img, (0, 0))
         window.blit(
-            font.render("Hello world\nThis is a\nPygame Template", True, "black"),
+            font.render("Hello world\nThis is a\nPygame Template", True, "yellow"),
             (10, 25)
         )
-        window.blit(img, (100, 100))
         pygame.display.update()
         clock.tick(cfg.TARGET_FPS)
 
