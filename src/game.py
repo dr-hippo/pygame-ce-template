@@ -1,5 +1,4 @@
 """Main game."""
-
 import pygame
 
 # Some code won't work if old pygame is used instead of pygame-ce

@@ -17,8 +17,8 @@ def get_current_path() -> str:
         # Running in a PyInstaller bundle
         return sys._MEIPASS
 
-    # Otherwise running in normal python environment
-    return os.path.dirname(__file__)
+    # Otherwise running in normal python environment, so make sure to go one level above, out of /src
+    return os.path.dirname(os.path.dirname(__file__))
 
 
 # TODO: add caching functions
@@ -126,6 +126,7 @@ def render_text(text: str, font: pygame.font.Font, color, surface: pygame.Surfac
     :param surface: Surface to render to.
     :param positionkwargs: Keyword arguments to position text, e.g. centerx=500/topright=(300, 200)
     """
+    # TODO: Consider text direction when wrapping, i.e. choose between width or height
     textsurf = font.render(text, True, color, wraplength=surface.get_rect().width)
     cliprect = surface.get_rect().clip(textsurf.get_rect(**positionkwargs))
     clippedtextsurf = font.render(text, True, color, wraplength=cliprect.width)

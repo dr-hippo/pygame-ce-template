@@ -17,5 +17,5 @@ Basic [pygame-ce](https://pyga.me) template with prewritten boilerplate and some
 2. Create virtual environment (Build script assumes folder is called `.venv`)
 3. Install required dependencies with pip (`pip install -r requirements.txt`)
 4. TODO
-5. Navigate to the template folder from the command line and run `py game.py` or `py .`
+5. Navigate to the template folder from the command line and run `py src`
 6. Run `build` on the command line to build to an executable.
