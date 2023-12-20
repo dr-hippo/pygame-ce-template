@@ -2,7 +2,7 @@
 
 import sys
 import os
-from typing import Union
+from typing import Union, Sequence
 
 import pygame
 
@@ -98,7 +98,7 @@ def load_font(*pathparts: str, filetype: str = "ttf", size: int = 16, essential:
     fullpath = os.path.join(get_current_path(), subfolders, name)
 
     try:
-        font = pygame.font.Font(fullpath, size)
+        font = pygame.Font(fullpath, size)
 
     except FileNotFoundError as error:
         if essential:
@@ -113,3 +113,20 @@ def load_font(*pathparts: str, filetype: str = "ttf", size: int = 16, essential:
         for key in styleattrs:
             setattr(font, key, styleattrs[key])
         return font
+
+
+def render_text(text: str, font: pygame.font.Font, color, surface: pygame.Surface,
+                **positionkwargs: Union[int, Sequence[int]]) -> None:
+    """
+    Renders text in the specified font and color onto surface, wrapping if needed.
+
+    :param text: Text to render.
+    :param font: Font to render with.
+    :param color: Color of text.
+    :param surface: Surface to render to.
+    :param positionkwargs: Keyword arguments to position text, e.g. centerx=500/topright=(300, 200)
+    """
+    textsurf = font.render(text, True, color, wraplength=surface.get_rect().width)
+    cliprect = surface.get_rect().clip(textsurf.get_rect(**positionkwargs))
+    clippedtextsurf = font.render(text, True, color, wraplength=cliprect.width)
+    surface.blit(clippedtextsurf, clippedtextsurf.get_rect(**positionkwargs))

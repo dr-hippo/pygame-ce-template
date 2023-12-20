@@ -32,7 +32,7 @@ def main():
     sound = utils.load_sound("sample")
     sound.play(loops=4)
 
-    font = utils.load_font("m6x11", size=48, align=pygame.FONT_RIGHT, underline=True)
+    font = utils.load_font("m6x11", size=48, align=pygame.FONT_CENTER, underline=True)
 
     # Event/update/render loop
     while True:
@@ -42,12 +42,9 @@ def main():
 
         pygame.event.get()
 
-        window.fill("white")
+        window.fill("grey")
         window.blit(img, (0, 0))
-        window.blit(
-            font.render("Hello world\nThis is a\nPygame Template", True, "yellow"),
-            (10, 25)
-        )
+        utils.render_text("Hello world. This is a Pygame template.", font, "yellow", window, topleft=(50, 25))
         pygame.display.update()
         clock.tick(cfg.TARGET_FPS)
 
