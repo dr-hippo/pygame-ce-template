@@ -54,7 +54,7 @@ def load_image(*pathparts: str, filetype: str = "png", essential: bool = False) 
             return placeholder
 
 
-def load_sound(*pathparts: str, filetype: str = "mp3", essential: bool = False) -> Union[pygame.mixer.Sound, None]:
+def load_sound(*pathparts: str, filetype: str = "mp3", essential: bool = False) -> pygame.mixer.Sound:
     """
     Loads sound from audio file.
 
@@ -76,7 +76,7 @@ def load_sound(*pathparts: str, filetype: str = "mp3", essential: bool = False) 
             raise error
 
         else:
-            return None
+            return load_sound("empty")
 
 
 def load_font(*pathparts: str, filetype: str = "ttf", size: int = 16, essential: bool = False, **styleattrs) \
