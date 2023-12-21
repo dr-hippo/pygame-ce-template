@@ -116,7 +116,7 @@ def load_font(*pathparts: str, filetype: str = "ttf", size: int = 16, essential:
 
 
 def render_text(text: str, font: pygame.font.Font, color, surface: pygame.Surface,
-                **positionkwargs: Union[int, Sequence[int]]) -> None:
+                aa: bool = True, **positionkwargs: Union[int, Sequence[int]]) -> None:
     """
     Renders text in the specified font and color onto surface, wrapping if needed.
 
@@ -124,10 +124,11 @@ def render_text(text: str, font: pygame.font.Font, color, surface: pygame.Surfac
     :param font: Font to render with.
     :param color: Color of text.
     :param surface: Surface to render to.
+    :param aa: Whether to render text with anti-aliasing.
     :param positionkwargs: Keyword arguments to position text, e.g. centerx=500/topright=(300, 200)
     """
     # TODO: Consider text direction when wrapping, i.e. choose between width or height
-    textsurf = font.render(text, True, color, wraplength=surface.get_rect().width)
+    textsurf = font.render(text, aa, color, wraplength=surface.get_rect().width)
     cliprect = surface.get_rect().clip(textsurf.get_rect(**positionkwargs))
-    clippedtextsurf = font.render(text, True, color, wraplength=cliprect.width)
+    clippedtextsurf = font.render(text, aa, color, wraplength=cliprect.width)
     surface.blit(clippedtextsurf, clippedtextsurf.get_rect(**positionkwargs))
