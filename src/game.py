@@ -1,12 +1,13 @@
 """Main game."""
+
+import sys
+import ctypes
+
 import pygame
 
 # Some code won't work if old pygame is used instead of pygame-ce
 if not hasattr(pygame, "IS_CE"):
     raise ImportError("Pygame Community Edition (pygame-ce) is required to run this game.")
-
-import sys
-import ctypes
 
 import config as cfg
 import utilities as utils
