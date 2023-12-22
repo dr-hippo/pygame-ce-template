@@ -7,19 +7,24 @@ import shutil
 import glob
 import runpy
 
+import src.config as cfg
+
 # OPTIONS #
 
 FILE_GLOBS_TO_INCLUDE = [
     "main.py",
     "assets/**/*",
-    "src/*.py"
+    "data/**/*",
+    "src/**/*.py"
 ]
 
 TEMPLATE = None
 
 # Note that any preexisting contents of this directory will be deleted, so be careful.
 # The actual "build" will end up in BUNDLE_DIR/build/web
-BUNDLE_DIR = "build-wasm"
+BUNDLE_DIR = "build/web"
+
+ADDITIONAL_ARGS = [f"--app_name={cfg.APPNAME}"]
 
 # END OPTIONS #
 
@@ -147,6 +152,7 @@ def make_build(skip_prompts=False):
     if TEMPLATE is not None:
         arg_list.extend(["--template", f"{TEMPLATE}"])
 
+    arg_list.extend(ADDITIONAL_ARGS)
     arg_list.append(BUNDLE_DIR)
     print(f"\nINFO: About to run command:\n    pygbag {' '.join(arg_list)}\n\n"
           "________________________\n")
