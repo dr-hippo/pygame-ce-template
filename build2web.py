@@ -24,7 +24,7 @@ TEMPLATE = None
 # The actual "build" will end up in BUNDLE_DIR/build/web
 BUNDLE_DIR = "build/web"
 
-ADDITIONAL_ARGS = [f"--app_name={cfg.APPNAME}"]
+ADDITIONAL_ARGS = ["--app_name", cfg.APPNAME]
 
 # END OPTIONS #
 
@@ -98,7 +98,7 @@ TEMPLATE = None
 
 # Note that any preexisting contents of this directory will be deleted, so be careful.
 # The actual "build" will end up in BUNDLE_DIR/build/web
-BUNDLE_DIR = "build-wasm"
+BUNDLE_DIR = "build/web"
 
 # END OPTIONS #
 

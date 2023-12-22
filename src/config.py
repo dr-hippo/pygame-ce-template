@@ -10,7 +10,7 @@ AUTHOR = "Dr.Hippo"
 
 # These are used to create data directories, make sure they stay the same across versions
 # They shouldn't include spaces or special characters
-APPNAME_SIMPLE = "PygameCETemplate"
+APPNAME_SIMPLE = "PygameCE-Template"
 AUTHOR_SIMPLE = "DrHippo"
 
 ASSET_PATH = "assets"

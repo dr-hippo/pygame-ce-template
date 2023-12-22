@@ -26,7 +26,8 @@ if platform.system().lower() == "windows":
 # Initialisation
 pygame.init()
 pygame.display.set_caption(f"{cfg.APPNAME} - {cfg.AUTHOR}")
-window = pygame.display.set_mode(cfg.RESOLUTION, pygame.SCALED if sys.platform == "emscripten" else pygame.RESIZABLE)
+display_flags = pygame.SCALED if sys.platform == "emscripten" else pygame.RESIZABLE | pygame.SCALED
+window = pygame.display.set_mode(cfg.RESOLUTION, display_flags)
 clock = pygame.time.Clock()
 
 
@@ -48,7 +49,7 @@ async def main():
 
         window.fill("grey")
         window.blit(img, (0, 0))
-        utils.render_text("Hello world. This is a Pygame template made by drhippo.",
+        utils.render_text("Hello world. This is a Pygame template made by Dr.Hippo.",
                           font, "yellow", window, midleft=(50, cfg.RESOLUTION[1]/2))
         pygame.display.update()
         await asyncio.sleep(0)
