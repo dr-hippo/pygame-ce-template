@@ -10,7 +10,7 @@ Basic [pygame-ce](https://pyga.me) template with prewritten boilerplate, useful 
   - Image and audio caching functions (TODO) 
   - Text rendering function
 - Premade build scripts for building to executable/play-in-browser bundle (with [PyInstaller](https://pyinstaller.org)/[Pygbag](https://pypi.org/project/pygbag))
-- Fast uploading to [itch.io](https://itch.io) with [butler](https://itchio.itch.io/butler) (TODO)
+- Fast uploading to [itch.io](https://itch.io) with [butler](https://itchio.itch.io/butler)
 
 ## Workflow:
 ### Setup:
@@ -26,4 +26,4 @@ Basic [pygame-ce](https://pyga.me) template with prewritten boilerplate, useful 
 1. Configure `build2exe.py` and `build2web.py`
 2. Run `build2exe.py` to build to an executable in `/dist`
 3. Run `build2web.py` to build to a play-in-browser package in `/build/web/build/web`
-5. Run `*WIP` to upload the game to itch.io with butler ([here's how to set it up](https://itchio.itch.io/butler)) (TODO)
+4. Run `itch_upload.py` to upload the game to itch.io with butler ([Documentation](https://itchio.itch.io/butler))
