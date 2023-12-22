@@ -10,7 +10,7 @@ import build2web
 import src.config as cfg
 
 if not shutil.which("butler"):
-    print("Butler cannot be found. Make sure it is installed and included on PATH.")
+    print("Cannot find butler. Make sure it is installed and included on PATH.")
     sys.exit()
 
 # Command is "butler push directory user/game:channel"

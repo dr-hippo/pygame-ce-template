@@ -34,7 +34,8 @@ clock = pygame.time.Clock()
 async def main():
     """Main game function."""
     global window, clock
-    font = utils.load_font("m6x11", size=48, align=pygame.FONT_RIGHT, underline=True)
+    smallfont = utils.load_font("m6x11", size=16)
+    font = utils.load_font("m6x11", size=48, align=pygame.FONT_LEFT, underline=True)
     img = utils.load_image("sample", filetype="jpg")
     # sound = utils.load_sound("sample")
     # sound.play(loops=4)
@@ -47,10 +48,12 @@ async def main():
 
         pygame.event.get()
 
-        window.fill("grey")
+        window.fill("aliceblue")
         window.blit(img, (0, 0))
+        utils.render_text(f"FPS: {round(clock.get_fps(), 1)}",
+                          smallfont, "black", window, bottomleft=(2, cfg.RESOLUTION[1]))
         utils.render_text("Hello world. This is a Pygame template made by Dr.Hippo.",
-                          font, "yellow", window, midleft=(50, cfg.RESOLUTION[1]/2))
+                          font, "#666666", window, midleft=(220, cfg.RESOLUTION[1]/2))
         pygame.display.update()
         await asyncio.sleep(0)
         clock.tick(cfg.TARGET_FPS)

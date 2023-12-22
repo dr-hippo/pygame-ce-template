@@ -2,7 +2,7 @@
 
 from pygame import Rect, Vector2
 
-RESOLUTION = Vector2(450, 225)
+RESOLUTION = Vector2(640, 360)
 TARGET_FPS = 120
 
 APPNAME = "Pygame-CE Template"
