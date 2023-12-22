@@ -1,12 +1,15 @@
-"""Reads config.toml and sets each variable in this module to the corresponding key in the TOML."""
+"""Configuration file."""
 
-import os
+from pygame import Rect, Vector2
 
-import tomlkit
+RESOLUTION = Vector2(450, 225)
+TARGET_FPS = 120
+APPNAME = "Pygame-CE Template"
+AUTHOR = "Dr.Hippo"
 
-import utilities as utils
+ASSET_PATH = "assets"
+AUDIO_PATH = "audio"
+FONT_PATH = "fonts"
+IMAGE_PATH = "images"
 
-with open(os.path.join(utils.get_current_path(), "data", "config.toml")) as file:
-    document = tomlkit.load(file)
-    for key in document.keys():
-        globals()[key] = document[key]
+DATA_PATH = "data"

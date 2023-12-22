@@ -6,16 +6,19 @@ from typing import Union, Sequence
 
 import pygame
 
-import config as cfg
+import src.config as cfg
 
 pygame.init()
 
 
 def get_current_path() -> str:
-    """Get resource path both when running normally or in PyInstaller bundle"""
+    """Get base path when running normally, in executable or in browser."""
     if getattr(sys, 'frozen', False):  # PyInstaller adds this attribute
         # Running in a PyInstaller bundle
         return sys._MEIPASS
+
+    elif sys.platform == "emscripten":
+        return ""
 
     # Otherwise running in normal python environment, so make sure to go one level above, out of /src
     return os.path.dirname(os.path.dirname(__file__))
@@ -93,9 +96,13 @@ def load_font(*pathparts: str, filetype: str = "ttf", size: int = 16, essential:
     details.
     :return: Loaded font
     """
-    subfolders = os.path.join(cfg.ASSET_PATH, cfg.FONT_PATH, *pathparts[:-1])
-    name = pathparts[-1] + os.extsep + filetype
-    fullpath = os.path.join(get_current_path(), subfolders, name)
+    if pathparts[-1]:
+        subfolders = os.path.join(cfg.ASSET_PATH, cfg.FONT_PATH, *pathparts[:-1])
+        name = pathparts[-1] + os.extsep + filetype
+        fullpath = os.path.join(get_current_path(), subfolders, name)
+
+    else:
+        fullpath = None
 
     try:
         font = pygame.Font(fullpath, size)
