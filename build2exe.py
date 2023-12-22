@@ -8,7 +8,7 @@ import src.config as cfg
 
 # OPTIONS #
 
-NOCONFIRM = False
+NOCONFIRM = True
 ONEFILE = False
 RESOURCE_DIRS = ["assets", "data", "src"]
 ICON_PATH = None
@@ -23,7 +23,7 @@ arg_list = ["main.py", "--noconsole", "--log-level", "WARN", "-n", cfg.APPNAME_S
 
 # Add resource folders to argument list with --add-data
 for resource in RESOURCE_DIRS:
-    arg_list.extend(["--add-data", f"{resource};{resource}"])
+    arg_list.extend(["--add-data", f"{resource}{os.pathsep}{resource}"])
 
 if NOCONFIRM:
     arg_list.append("-y")

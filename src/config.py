@@ -7,6 +7,7 @@ TARGET_FPS = 120
 
 APPNAME = "Pygame-CE Template"
 AUTHOR = "Dr.Hippo"
+VERSION = "pre-alpha"
 
 # These are used to create data directories, make sure they stay the same across versions
 # They shouldn't include spaces or special characters
