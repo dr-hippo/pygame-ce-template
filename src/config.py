@@ -10,8 +10,10 @@ AUTHOR = "Dr.Hippo"
 
 # These are used to create data directories, make sure they stay the same across versions
 # They shouldn't include spaces or special characters
-APPNAME_SIMPLE = "PygameCE-Template"
+# If uploading to itch.io, the lowercase versions of these should be your username/project name
+APPNAME_SIMPLE = "Pygame-CE-Template"
 AUTHOR_SIMPLE = "DrHippo"
+# E.g. this will be uploaded to https://drhippo.itch.io/pygame-ce-template
 
 ASSET_PATH = "assets"
 AUDIO_PATH = "audio"

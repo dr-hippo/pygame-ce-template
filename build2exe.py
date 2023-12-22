@@ -9,7 +9,7 @@ import src.config as cfg
 # OPTIONS #
 
 NOCONFIRM = False
-ONEFILE = True
+ONEFILE = False
 RESOURCE_DIRS = ["assets", "data", "src"]
 ICON_PATH = None
 # os.path.join("assets", "images", "sample.jpg")
@@ -23,7 +23,7 @@ arg_list = ["main.py", "--noconsole", "--log-level", "WARN", "-n", cfg.APPNAME_S
 
 # Add resource folders to argument list with --add-data
 for resource in RESOURCE_DIRS:
-    arg_list.extend(["--add-data", f'{resource};{resource}'])
+    arg_list.extend(["--add-data", f"{resource};{resource}"])
 
 if NOCONFIRM:
     arg_list.append("-y")
@@ -37,4 +37,11 @@ if ICON_PATH:
 if VENV_DIR:
     arg_list.extend(["-p", os.path.join(VENV_DIR, "Lib", "site-packages")])
 
-PyInstaller.__main__.run(arg_list)
+
+def make_build():
+    """Run PyInstaller with the provided arguments."""
+    PyInstaller.__main__.run(arg_list)
+
+
+if __name__ == "__main__":
+    make_build()

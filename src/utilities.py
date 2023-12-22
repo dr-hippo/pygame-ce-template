@@ -18,9 +18,10 @@ def get_current_path() -> str:
         return sys._MEIPASS
 
     elif sys.platform == "emscripten":
+        # Running in a Pygbag bundle
         return ""
 
-    # Otherwise running in normal python environment, so make sure to go one level above, out of /src
+    # Otherwise, this is running in normal python environment, so make sure to go one level up, out of /src
     return os.path.dirname(os.path.dirname(__file__))
 
 
@@ -134,7 +135,6 @@ def render_text(text: str, font: pygame.font.Font, color, surface: pygame.Surfac
     :param aa: Whether to render text with anti-aliasing.
     :param positionkwargs: Keyword arguments to position text, e.g. centerx=500/topright=(300, 200)
     """
-    # TODO: Consider text direction when wrapping, i.e. choose between width or height
     textsurf = font.render(text, aa, color, wraplength=surface.get_rect().width)
     cliprect = surface.get_rect().clip(textsurf.get_rect(**positionkwargs))
     clippedtextsurf = font.render(text, aa, color, wraplength=cliprect.width)
