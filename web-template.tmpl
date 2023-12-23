@@ -46,8 +46,6 @@ def uy(*argv):
     return acc
 
 
-
-
 # do not rename
 async def custom_site():
 
@@ -56,13 +54,9 @@ async def custom_site():
     import platform
     import json
     from pathlib import Path
-
-
-
     import embed
 
-
-    platform.document.body.style.background = "#7f7f7f"
+    platform.document.body.style.background = "white"
 
     import pygame
 
@@ -74,27 +68,22 @@ async def custom_site():
     pygame.font.init()
 
     screen = pygame.display.set_mode([ux(.100),uy(.100)], pygame.SRCALPHA, 32)
-    screen.set_colorkey( (0,0,0,0), pygame.RLEACCEL )
-    screen.fill( (0,0,0,0) )
+    screen.set_colorkey( (255,255,255,0), pygame.RLEACCEL )
+    screen.fill( (255,255,255,255) )
 
     compose()
 
     platform.window.transfer.hidden = true
     platform.window.canvas.style.visibility = "visible"
 
-
-
     apk = "{{cookiecutter.archive}}.apk"
-
     bundle = "{{cookiecutter.archive}}"
 
     # the C or js loader could do that but be explicit.
     appdir = Path(f"/data/data/{bundle}") # /data/data/{{cookiecutter.archive}}
     appdir.mkdir()
 
-
     # mount apk
-
     cfg = {
         "io": "url",
         "type":"mount",
@@ -104,7 +93,6 @@ async def custom_site():
         },
         "path" : f"/ => {appdir.as_posix()}",
     }
-
 
     track = platform.window.MM.prepare(apk, json.dumps(cfg))
 
@@ -118,8 +106,8 @@ async def custom_site():
         total = track.len or 10  # avoid div0
         slot = ux(.060)/ total # 60%
 
-        pygame.draw.rect(screen,(10,10,10),( marginx-ux(10), marginy-uy(10), (total*slot)+ux(20), uy(110) ) )
-        pygame.draw.rect(screen,(0,255,0), ( marginx, marginy, track.pos*slot, uy(90)) )
+        pygame.draw.rect(screen,"black",( marginx-ux(10), marginy-uy(10), (total*slot)+ux(20), uy(110) ) )
+        pygame.draw.rect(screen,"#589e0e", ( marginx, marginy, track.pos*slot, uy(90)) )
 
     # wait until zip mount + overlayfs is complete
     while not track.ready:
@@ -131,10 +119,8 @@ async def custom_site():
     pg_bar(track.len)
     compose()
 
-
     # preloader will change dir and prepend it to sys.path
     platform.run_main(PyConfig, loaderhome= appdir / "assets", loadermain=None)
-
 
     # wait preloading complete
     # that includes images and wasm compilation of bundled modules
@@ -150,7 +136,6 @@ async def custom_site():
     # but we need to fill __file__ that is not yet set
     __import__(__name__).__file__ = str(main)
 
-
     # now make a prompt
     fnt = pygame.sysfont.SysFont("freesans",  uy(80) )
 
@@ -161,17 +146,16 @@ async def custom_site():
         else:
             prompt = fnt.render(f"Setting [{pkg}] up", True, "black")
         pg_bar(track.len)
-        screen.blit(prompt, ( marginx+ ux(80), marginy - uy(10) ) )
+        screen.blit(prompt, ( marginx+ux(10), marginy-uy(10) ) )
         compose()
 
     # test/wait if user media interaction required
     if not platform.window.MM.UME:
 
         # now make a prompt
-        fnt = pygame.sysfont.SysFont("freesans",  uy(80) )
-        prompt = fnt.render("Ready to start !", True, "blue")
+        prompt = fnt.render("Click anywhere to start", True, "black")
         pg_bar(track.len)
-        screen.blit(prompt, ( marginx+ ux(80), marginy - uy(10) ) )
+        screen.blit(prompt, prompt.get_rect(centerx=screen.get_rect().centerx, y=marginy - uy(10)))
         compose()
         print("""
         * Waiting for media user engagement : please click/touch page *
@@ -186,20 +170,9 @@ async def custom_site():
     await shell.runpy(main, callback=ui_callback)
 
 
-
 import asyncio
 
 asyncio.run( custom_site() )
-
-
-
-
-
-
-
-
-
-
 
 
 # BEGIN BLOCK
@@ -227,8 +200,6 @@ asyncio.run( custom_site() )
 
 --><script type="application/javascript">
 // END BLOCK
-
-
 
 // this dict is available under PyConfig.config from __main__
 
@@ -271,7 +242,7 @@ config = {
             margin-top: 20px;
             margin-left: 30px;
             font-weight: bold;
-            color: rgb(120, 120, 120);
+            color: #222;
         }
 
         #progress {
@@ -306,7 +277,7 @@ config = {
             font-family: arial;
             margin: 0;
             padding: none;
-            background-color:powderblue;
+            background-color: white;
         }
 
         .topright{
@@ -391,16 +362,17 @@ height="1px"
             <div id="info" class="trinfo"></div>
 
             <iframe id="iframe" class="framed" name="iframe"
-width="470px" height="90%"
-allowtransparency="true"
-style="z-index: 10; style="background: #FFFFFF;"
-frameborder="1"
+                width="470px" height="90%"
+                allowtransparency="true"
+                style="z-index: 10; style="background: #FFFFFF;"
+                frameborder="1"
                 allowfullscreen="true"
                 webkitallowfullscreen="true"
                 msallowfullscreen="true"
                 mozallowfullscreen="true"
                 sandbox="allow-same-origin allow-top-navigation allow-scripts allow-pointer-lock"
-                allow="autoplay; fullscreen *; geolocation; microphone; camera; midi; monetization; xr-spatial-tracking; gamepad; gyroscope; accelerometer; xr; cross-origin-isolated"
+                allow="autoplay; fullscreen *; geolocation; microphone; camera; midi; monetization;
+                 xr-spatial-tracking; gamepad; gyroscope; accelerometer; xr; cross-origin-isolated"
                 src="{{cookiecutter.cdn}}empty.html"
                 scrolling="yes">
             </iframe>
@@ -474,6 +446,5 @@ frameborder="1"
     }
 
     </script>
-
 </body>
 </html>
