@@ -7,6 +7,7 @@ import shutil
 import platform
 
 import src.config as cfg
+import src.utilities as utils
 
 if not shutil.which("butler"):
     print("Cannot find butler. Make sure it is installed and included on PATH.")
@@ -28,14 +29,17 @@ def push(folder, channel: str):
     if cfg.UPLOAD_DRY_RUN:
         arg_list.extend(["--dry-run"])
 
+    if cfg.UPLOAD_ONLY_IF_CHANGED:
+        arg_list.extend(["--if-changed"])
+
     # Command is "butler push folder user/game:channel"
     subprocess.run(arg_list)
 
 
 def main():
     """Push executable and web build."""
-    push(cfg.EXE_DIST_DIR, platform.system())
-    push(cfg.WEB_BUNDLE_DIR, "web")
+    push(os.path.join(utils.get_current_path(), "dist", cfg.APPNAME_SIMPLE), platform.system())
+    push(os.path.join(utils.get_current_path(), cfg.WEB_BUNDLE_DIR, "build", "web"), "web")
 
 
 if __name__ == "__main__":

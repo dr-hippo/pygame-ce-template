@@ -70,8 +70,8 @@ WEB_ADDITIONAL_ARGS = ["--app_name", APPNAME]
 
 
 # ITCH UPLOAD WITH BUTLER #
-# Don't actually upload anything, just display
-UPLOAD_DRY_RUN = False
+# Don't actually upload anything, just show what would happen
+UPLOAD_DRY_RUN = True
 
 # Don't actually upload if builds haven't changed
 UPLOAD_ONLY_IF_CHANGED = True
