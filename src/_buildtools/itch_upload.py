@@ -6,24 +6,37 @@ import subprocess
 import shutil
 import platform
 
-import src._buildtools.build2web as build2web
 import src.config as cfg
 
 if not shutil.which("butler"):
     print("Cannot find butler. Make sure it is installed and included on PATH.")
     sys.exit()
 
-# Command is "butler push directory user/game:channel"
-# Push executable build
-subprocess.run(["butler", "push",
-                os.path.join("../../dist", cfg.APPNAME_SIMPLE),  # Directory of executable build
-                f"{cfg.AUTHOR_SIMPLE.lower()}/{cfg.APPNAME_SIMPLE.lower()}:{platform.system()}",
-                "--userversion", cfg.VERSION
-                ])
 
-# Push web build
-subprocess.run(["butler", "push",
-                os.path.join(build2web.BUNDLE_DIR, "../../build", "web"),  # Directory of web build
-                f"{cfg.AUTHOR_SIMPLE.lower()}/{cfg.APPNAME_SIMPLE.lower()}:Web",
-                "--userversion", cfg.VERSION
-                ])
+def push(folder, channel: str):
+    """
+    Upload folder to itch.io with butler.
+
+    :param folder: Folder containing game files.
+    :param channel: Channel on game page.
+    """
+
+    arg_list = ["butler", "push", folder, cfg.AUTHOR_SIMPLE.lower() + "/" + cfg.APPNAME_SIMPLE.lower() + ":" + channel]
+
+    arg_list.extend(["--userversion", cfg.VERSION])
+
+    if cfg.UPLOAD_DRY_RUN:
+        arg_list.extend(["--dry-run"])
+
+    # Command is "butler push folder user/game:channel"
+    subprocess.run(arg_list)
+
+
+def main():
+    """Push executable and web build."""
+    push(cfg.EXE_DIST_DIR, platform.system())
+    push(cfg.WEB_BUNDLE_DIR, "web")
+
+
+if __name__ == "__main__":
+    main()

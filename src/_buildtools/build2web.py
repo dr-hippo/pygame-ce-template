@@ -1,6 +1,5 @@
 """Script to automate Pygbag building.
-Modified from https://github.com/davidpendergast/dimensions/blob/main/make_web_bundle.py.
-MAKE SURE TO USE POSIX PATHS."""
+Modified from https://github.com/davidpendergast/dimensions/blob/main/make_web_bundle.py."""
 
 import os
 import sys
@@ -9,26 +8,7 @@ import glob
 import runpy
 
 import src.config as cfg
-
-# OPTIONS #
-
-FILE_GLOBS_TO_INCLUDE = [
-    "main.py",
-    "assets/**/*",
-    "data/**/*",
-    "src/**/*.py"
-]
-
-# Web export template from https://github.com/pygame-web/archives/blob/main/0.8/default.tmpl
-TEMPLATE = "src/_buildtools/web-template.tmpl"
-
-# Note that any preexisting contents of this directory will be deleted, so be careful.
-# The actual "build" will end up in BUNDLE_DIR/build/web
-BUNDLE_DIR = "build/web"
-
-ADDITIONAL_ARGS = ["--app_name", cfg.APPNAME]
-
-# END OPTIONS #
+import src.utilities as utils
 
 
 def _ask_yn_question(question):
@@ -47,17 +27,20 @@ def _ask_yn_question(question):
 def make_build(skip_prompts=False):
     """Copy the included blobs to the source folder, overwriting other files.
     Then bundle these files with Pygbag."""
-    if os.path.exists(BUNDLE_DIR):
-        if not skip_prompts and os.listdir(BUNDLE_DIR) \
-                and not _ask_yn_question(f"Bundle destination {BUNDLE_DIR} isn't empty, overwrite?"):
+
+    os.chdir(utils.get_current_path())
+
+    if os.path.exists(cfg.WEB_BUNDLE_DIR):
+        if not skip_prompts and os.listdir(cfg.WEB_BUNDLE_DIR) \
+                and not _ask_yn_question(f"Bundle destination {cfg.WEB_BUNDLE_DIR} isn't empty, overwrite?"):
             raise ValueError("Process was cancelled.")
-        shutil.rmtree(BUNDLE_DIR)
-        print(f"INFO: deleted {BUNDLE_DIR}")
-    os.mkdir(BUNDLE_DIR)
-    print(f"INFO: created {BUNDLE_DIR}")
+        shutil.rmtree(cfg.WEB_BUNDLE_DIR)
+        print(f"INFO: deleted {cfg.WEB_BUNDLE_DIR}")
+    os.mkdir(cfg.WEB_BUNDLE_DIR)
+    print(f"INFO: created {cfg.WEB_BUNDLE_DIR}")
 
     all_files_to_copy = set()
-    for glob_code in FILE_GLOBS_TO_INCLUDE:
+    for glob_code in cfg.WEB_INCLUDE_GLOBS:
         for fpath in glob.glob(glob_code, recursive=True):
             if os.path.isfile(fpath):
                 all_files_to_copy.add(fpath)
@@ -69,18 +52,18 @@ def make_build(skip_prompts=False):
             not _ask_yn_question(f"Continue with these {len(all_files_to_copy)} file(s)?"):
         raise ValueError("Process was cancelled.")
 
-    print(f"INFO: Copying the files to {BUNDLE_DIR}...")
+    print(f"INFO: Copying the files to {cfg.WEB_BUNDLE_DIR}...")
     for fpath in all_files_to_copy:
-        dest_fpath = os.path.join(BUNDLE_DIR, fpath)
+        dest_fpath = os.path.join(cfg.WEB_BUNDLE_DIR, fpath)
         os.makedirs(os.path.dirname(dest_fpath), exist_ok=True)
         shutil.copy(fpath, dest_fpath)
     print(f"INFO: Copied {len(all_files_to_copy)} file(s).")
 
     arg_list = []
-    if TEMPLATE is not None:
-        arg_list.extend(["--template", f"{TEMPLATE}"])
+    if cfg.WEB_TEMPLATE is not None:
+        arg_list.extend(["--template", f"{cfg.WEB_TEMPLATE}"])
 
-    arg_list.append(BUNDLE_DIR)
+    arg_list.append(cfg.WEB_BUNDLE_DIR)
     print(f"\nINFO: About to run command:\n    pygbag {' '.join(arg_list)}\n\n"
           "________________________\n")
 
@@ -89,4 +72,4 @@ def make_build(skip_prompts=False):
 
 
 if __name__ == "__main__":
-    make_build(skip_prompts=any(f in sys.argv for f in ("-f", "--force")))
+    make_build(skip_prompts=any(f in sys.argv for f in ("-f", "--force") or cfg.BUILD_NOPROMPTS))
