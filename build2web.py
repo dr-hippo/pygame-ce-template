@@ -19,7 +19,8 @@ FILE_GLOBS_TO_INCLUDE = [
     "src/**/*.py"
 ]
 
-TEMPLATE = None
+# Web export template from https://github.com/pygame-web/archives/blob/main/0.8/default.tmpl
+TEMPLATE = "web-template.tmpl"
 
 # Note that any preexisting contents of this directory will be deleted, so be careful.
 # The actual "build" will end up in BUNDLE_DIR/build/web
