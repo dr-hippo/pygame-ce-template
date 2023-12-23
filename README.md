@@ -2,6 +2,8 @@
 
 Basic [pygame-ce](https://pyga.me) template with prewritten boilerplate, useful classes, and build/upload scripts.
 
+Intended for use in game jams.
+
 ## Features:
 - Scene/Gameobject system (TODO)
 - Game state save/load (TODO)
@@ -22,8 +24,14 @@ Basic [pygame-ce](https://pyga.me) template with prewritten boilerplate, useful 
 ### Programming
 1. TODO
 
-### Building and Uploading
-1. Configure `build2exe.py` and `build2web.py`
-2. Run `build2exe.py` to build to an executable in `/dist`
-3. Run `build2web.py` to build to a play-in-browser package in `/build/web/build/web`
-4. Run `itch_upload.py` to upload the game to itch.io with butler ([Documentation](https://itchio.itch.io/butler))
+### Building
+1. Run `src/_buildtools/build2exe.py` to build to an executable in `/dist`
+2. Run `src/_buildtools/build2web.py` to build to a play-in-browser package in `/build/web/build/web`
+
+### Uploading to itch.io (optional)
+1. [Register](https://itch.io/register) or [login](https://itch.io/login) to an itch.io account
+2. [Create a new project](https://itch.io/game/new)
+3. Install [butler](https://itchio.itch.io/butler) and add its folder to PATH
+4. On the command line, login to butler with your itch account
+5. Run `src/_buildtools/itch_upload.py` to upload built files to itch.io
+6. Customise your page
