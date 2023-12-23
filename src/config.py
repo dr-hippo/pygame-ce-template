@@ -57,7 +57,9 @@ WEB_INCLUDE_GLOBS = [
     "src/**/*.py"
 ]
 
-WEB_EXCLUDE_GLOBS = []
+WEB_EXCLUDE_GLOBS = [
+    "src/_buildtools/**/*"
+]
 
 # Web export template from https://github.com/pygame-web/archives/blob/main/0.8/default.tmpl
 WEB_TEMPLATE = "src/_buildtools/web-template.tmpl"
@@ -71,7 +73,7 @@ WEB_ADDITIONAL_ARGS = ["--app_name", APPNAME]
 
 # ITCH UPLOAD WITH BUTLER #
 # Don't actually upload anything, just show what would happen
-UPLOAD_DRY_RUN = True
+UPLOAD_DRY_RUN = False
 
 # Don't actually upload if builds haven't changed
 UPLOAD_ONLY_IF_CHANGED = True

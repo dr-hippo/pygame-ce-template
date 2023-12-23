@@ -45,6 +45,12 @@ def make_build(skip_prompts=False):
             if os.path.isfile(fpath):
                 all_files_to_copy.add(fpath)
 
+    for glob_code in cfg.WEB_EXCLUDE_GLOBS:
+        for fpath in glob.glob(glob_code, recursive=True):
+            fpath = os.path.normpath(fpath)
+            if os.path.isfile(fpath) and fpath in all_files_to_copy:
+                all_files_to_copy.remove(fpath)
+
     print(f"\nINFO: bundle will include:")
     for fpath in sorted(all_files_to_copy):
         print(f"    {fpath}")
@@ -63,6 +69,7 @@ def make_build(skip_prompts=False):
     if cfg.WEB_TEMPLATE is not None:
         arg_list.extend(["--template", f"{cfg.WEB_TEMPLATE}"])
 
+    arg_list.extend(cfg.WEB_ADDITIONAL_ARGS)
     arg_list.append(cfg.WEB_BUNDLE_DIR)
     print(f"\nINFO: About to run command:\n    pygbag {' '.join(arg_list)}\n\n"
           "________________________\n")
