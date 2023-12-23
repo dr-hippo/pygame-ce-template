@@ -6,7 +6,7 @@ import subprocess
 import shutil
 import platform
 
-import build2web
+import src._buildtools.build2web as build2web
 import src.config as cfg
 
 if not shutil.which("butler"):
@@ -16,14 +16,14 @@ if not shutil.which("butler"):
 # Command is "butler push directory user/game:channel"
 # Push executable build
 subprocess.run(["butler", "push",
-                os.path.join("dist", cfg.APPNAME_SIMPLE),  # Directory of executable build
+                os.path.join("../../dist", cfg.APPNAME_SIMPLE),  # Directory of executable build
                 f"{cfg.AUTHOR_SIMPLE.lower()}/{cfg.APPNAME_SIMPLE.lower()}:{platform.system()}",
                 "--userversion", cfg.VERSION
                 ])
 
 # Push web build
 subprocess.run(["butler", "push",
-                os.path.join(build2web.BUNDLE_DIR, "build", "web"),  # Directory of web build
+                os.path.join(build2web.BUNDLE_DIR, "../../build", "web"),  # Directory of web build
                 f"{cfg.AUTHOR_SIMPLE.lower()}/{cfg.APPNAME_SIMPLE.lower()}:Web",
                 "--userversion", cfg.VERSION
                 ])
