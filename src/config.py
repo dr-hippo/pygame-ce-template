@@ -39,7 +39,7 @@ VENV_DIR = ".venv"
 EXE_ONEFILE = False
 
 # Data to be bundled
-EXE_DATA_TO_BUNDLE = ["assets", "data"]
+EXE_DATA_TO_BUNDLE = [ASSET_PATH, DATA_PATH]
 
 # TODO: Data to be copied into the build folder (user-accessible)
 EXE_DATA_TO_COPY = ["LICENSE.txt"]
@@ -52,8 +52,8 @@ EXE_ADDITIONAL_ARGS = ["--noconsole", "--log-level", "WARN", "-n", APPNAME_SIMPL
 # BUILD (WEB) #
 WEB_INCLUDE_GLOBS = [
     "main.py",
-    "assets/**/*",
-    "data/**/*",
+    f"{ASSET_PATH}/**/*",
+    f"{DATA_PATH}/**/*",
     "src/**/*.py"
 ]
 
