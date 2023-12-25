@@ -1,7 +1,7 @@
 """Configuration file."""
 
 from pygame import Rect, Vector2
-import os
+
 
 # GENERAL #
 APPNAME = "Pygame-CE Template"

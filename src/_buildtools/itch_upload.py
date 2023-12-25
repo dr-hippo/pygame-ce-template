@@ -1,6 +1,5 @@
 """Uses butler to upload built files to itch. Requires butler being installed and user being logged in."""
 
-import os
 import sys
 import subprocess
 import shutil
@@ -22,15 +21,19 @@ def push(folder, channel: str):
     :param channel: Channel on game page.
     """
 
-    arg_list = ["butler", "push", folder, cfg.AUTHOR_SIMPLE.lower() + "/" + cfg.APPNAME_SIMPLE.lower() + ":" + channel]
+    user = cfg.AUTHOR_SIMPLE.lower()
+    project = cfg.APPNAME_SIMPLE.lower()
+    print(f"INFO: Pushing to {user}.itch.io/{project} channel {channel}")
+
+    arg_list = ["butler", "push", folder, user + "/" + project + ":" + channel]
 
     arg_list.extend(["--userversion", cfg.VERSION])
 
     if cfg.UPLOAD_DRY_RUN:
-        arg_list.extend(["--dry-run"])
+        arg_list.append("--dry-run")
 
     if cfg.UPLOAD_ONLY_IF_CHANGED:
-        arg_list.extend(["--if-changed"])
+        arg_list.append("--if-changed")
 
     # Command is "butler push folder user/game:channel"
     subprocess.run(arg_list)

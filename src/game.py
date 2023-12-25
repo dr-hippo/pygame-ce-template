@@ -1,7 +1,6 @@
 """Main game."""
 
 import sys
-import os
 import platform
 import ctypes
 import asyncio
@@ -53,9 +52,9 @@ async def main():
         window.fill("aliceblue")
         window.blit(img, (0, 0))
         utils.render_text(f"FPS: {round(clock.get_fps(), 1)}",
-                          smallfont, "black", window, bottomleft=(2, cfg.RESOLUTION[1]))
+                          smallfont, "black", window, bottomleft=(5, window.get_rect().bottom))
         utils.render_text("Hello world. This is a Pygame template made by Dr.Hippo.",
-                          font, "#666666", window, midleft=(220, cfg.RESOLUTION[1]/2))
+                          font, "#666666", window, midleft=(220, window.get_rect().centery))
         pygame.display.update()
         await asyncio.sleep(0)
         clock.tick(cfg.TARGET_FPS)
