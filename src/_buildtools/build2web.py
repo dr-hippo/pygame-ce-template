@@ -28,7 +28,7 @@ def make_build(skip_prompts=False):
     """Copy the included blobs to the source folder, overwriting other files.
     Then bundle these files with Pygbag."""
 
-    os.chdir(utils.get_current_path())
+    os.chdir(utils.rootdir())
 
     if os.path.exists(cfg.WEB_BUNDLE_DIR):
         if not skip_prompts and os.listdir(cfg.WEB_BUNDLE_DIR) \

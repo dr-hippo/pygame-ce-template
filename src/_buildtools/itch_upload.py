@@ -38,8 +38,8 @@ def push(folder, channel: str):
 
 def main():
     """Push executable and web build."""
-    push(os.path.join(utils.get_current_path(), "dist", cfg.APPNAME_SIMPLE), platform.system())
-    push(os.path.join(utils.get_current_path(), cfg.WEB_BUNDLE_DIR, "build", "web"), "web")
+    push(utils.to_path("dist", cfg.APPNAME_SIMPLE), platform.system().lower())
+    push(utils.to_path(cfg.WEB_BUNDLE_DIR, "build", "web"), "web")
 
 
 if __name__ == "__main__":

@@ -12,15 +12,14 @@ import src.utilities as utils
 def make_build():
     """Build to standalone executable using PyInstaller."""
 
-    os.chdir(utils.get_current_path())
-    workpath = os.path.join(utils.get_current_path(), "build")
-    distpath = os.path.join(utils.get_current_path(), "dist")
+    workpath = utils.to_path("build")
+    distpath = utils.to_path("dist")
 
     arg_list = ["main.py"] + cfg.EXE_ADDITIONAL_ARGS
 
     # Add resource folders to argument list with --add-data
     for resource in cfg.EXE_DATA_TO_BUNDLE:
-        arg_list.extend(["--add-data", f"{os.path.join(os.getcwd(), resource)}{os.pathsep}{resource}"])
+        arg_list.extend(["--add-data", f"{utils.to_path(resource)}{os.pathsep}{resource}"])
 
     if cfg.BUILD_NOPROMPTS:
         arg_list.append("-y")

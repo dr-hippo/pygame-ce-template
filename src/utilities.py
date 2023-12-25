@@ -11,8 +11,8 @@ import src.config as cfg
 pygame.init()
 
 
-def get_current_path() -> str:
-    """Get base path when running normally, in executable or in browser."""
+def rootdir() -> str:
+    """Get root directory whether running normally, in executable or in browser."""
     if getattr(sys, 'frozen', False):  # PyInstaller adds this attribute
         # Running in a PyInstaller bundle
         return sys._MEIPASS
@@ -23,6 +23,16 @@ def get_current_path() -> str:
 
     # Otherwise, this is running in normal python environment, so make sure to go one level up, out of /src
     return os.path.dirname(os.path.dirname(__file__))
+
+
+def to_path(*parts: str) -> str:
+    """
+    Get the full path as given in parts local to the current root directory, joining them together if needed.
+
+    :param parts: Parts of the path to be joined, i.e. subfolders and filename.
+    :return: Processed path
+    """
+    return os.path.join(rootdir(), *parts)
 
 
 # TODO: add caching functions
@@ -37,7 +47,7 @@ def load_image(*pathparts: str, filetype: str = "png", essential: bool = False) 
     """
     subfolders = os.path.join(cfg.ASSET_PATH, cfg.IMAGE_PATH, *pathparts[:-1])
     name = pathparts[-1] + os.extsep + filetype
-    fullpath = os.path.join(get_current_path(), subfolders, name)
+    fullpath = to_path(subfolders, name)
 
     try:
         image = pygame.image.load(fullpath)
@@ -69,7 +79,7 @@ def load_sound(*pathparts: str, filetype: str = "mp3", essential: bool = False) 
     """
     subfolders = os.path.join(cfg.ASSET_PATH, cfg.AUDIO_PATH, *pathparts[:-1])
     name = pathparts[-1] + os.extsep + filetype
-    fullpath = os.path.join(get_current_path(), subfolders, name)
+    fullpath = to_path(subfolders, name)
 
     try:
         sound = pygame.mixer.Sound(fullpath)
@@ -100,7 +110,7 @@ def load_font(*pathparts: str, filetype: str = "ttf", size: int = 16, essential:
     if pathparts[-1]:
         subfolders = os.path.join(cfg.ASSET_PATH, cfg.FONT_PATH, *pathparts[:-1])
         name = pathparts[-1] + os.extsep + filetype
-        fullpath = os.path.join(get_current_path(), subfolders, name)
+        fullpath = to_path(subfolders, name)
 
     else:
         fullpath = None
