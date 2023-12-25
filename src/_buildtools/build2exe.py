@@ -15,7 +15,7 @@ def make_build():
     workpath = utils.to_path("build")
     distpath = utils.to_path("dist")
 
-    arg_list = ["main.py"] + cfg.EXE_ADDITIONAL_ARGS
+    arg_list = [utils.to_path("main.py")] + cfg.EXE_ADDITIONAL_ARGS
 
     # Add resource folders to argument list with --add-data
     for resource in cfg.EXE_DATA_TO_BUNDLE:
@@ -27,8 +27,8 @@ def make_build():
     if cfg.EXE_ONEFILE:
         arg_list.append("-F")
 
-    if cfg.EXE_ICON_PATH:
-        arg_list.extend(["-i", cfg.EXE_ICON_PATH])
+    if cfg.ICON_FILENAME:
+        arg_list.extend(["-i", utils.to_path(cfg.ASSET_PATH, cfg.IMAGE_PATH, cfg.ICON_FILENAME)])
 
     if cfg.VENV_DIR:
         arg_list.extend(["-p", os.path.join(cfg.VENV_DIR, "Lib", "site-packages")])

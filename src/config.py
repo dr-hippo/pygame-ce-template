@@ -1,6 +1,7 @@
 """Configuration file."""
 
 from pygame import Rect, Vector2
+import os
 
 # GENERAL #
 APPNAME = "Pygame-CE Template"
@@ -30,6 +31,9 @@ DATA_PATH = "data"
 
 # BUILD #
 BUILD_NOPROMPTS = True
+
+# Filename of image to set as the window/tray icon for executable, and favicon for web
+ICON_FILENAME = "default-icon.png"
 
 # If not using a virtual environment (not recommended), set to None
 VENV_DIR = ".venv"
@@ -61,7 +65,7 @@ WEB_EXCLUDE_GLOBS = [
     "src/_buildtools/**/*"
 ]
 
-# Web export template from https://github.com/pygame-web/archives/blob/main/0.8/default.tmpl
+# Web export template modified from https://github.com/pygame-web/archives/blob/main/0.8/default.tmpl
 WEB_TEMPLATE = "src/_buildtools/web-template.tmpl"
 
 # Note that any preexisting contents of this directory will be deleted, so be careful.

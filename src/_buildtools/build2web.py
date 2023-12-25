@@ -67,7 +67,10 @@ def make_build(skip_prompts=False):
 
     arg_list = []
     if cfg.WEB_TEMPLATE is not None:
-        arg_list.extend(["--template", f"{cfg.WEB_TEMPLATE}"])
+        arg_list.extend(["--template", utils.to_path(cfg.WEB_TEMPLATE)])
+
+    if cfg.ICON_FILENAME:
+        arg_list.extend(["--icon", utils.to_path(cfg.ASSET_PATH, cfg.IMAGE_PATH, cfg.ICON_FILENAME)])
 
     arg_list.extend(cfg.WEB_ADDITIONAL_ARGS)
     arg_list.append(cfg.WEB_BUNDLE_DIR)

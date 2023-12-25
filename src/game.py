@@ -26,6 +26,8 @@ if platform.system().lower() == "windows":
 # Initialisation
 pygame.init()
 pygame.display.set_caption(f"{cfg.APPNAME} - {cfg.AUTHOR}")
+if cfg.ICON_FILENAME:
+    pygame.display.set_icon(pygame.image.load(utils.to_path(cfg.ASSET_PATH, cfg.IMAGE_PATH, cfg.ICON_FILENAME)))
 display_flags = pygame.SCALED if sys.platform == "emscripten" else pygame.RESIZABLE | pygame.SCALED
 window = pygame.display.set_mode(cfg.RESOLUTION, display_flags)
 clock = pygame.time.Clock()
