@@ -14,6 +14,8 @@ def make_build():
 
     workpath = utils.to_path("build")
     distpath = utils.to_path("dist")
+    exe_path = utils.to_path(distpath, cfg.APPNAME_SIMPLE) if cfg.EXE_ONEFILE \
+        else utils.to_path(distpath, cfg.APPNAME_SIMPLE)
 
     arg_list = [utils.to_path("main.py")] + cfg.EXE_ADDITIONAL_ARGS
 
@@ -27,21 +29,26 @@ def make_build():
     if cfg.EXE_ONEFILE:
         arg_list.append("-F")
 
+        # Enabling splash screen in directory mode makes window start unfocused, so only enable it in onefile mode
+        if cfg.EXE_SPLASH_FILENAME:
+            arg_list.extend(["--splash", utils.to_path(cfg.ASSET_PATH, cfg.IMAGE_PATH, cfg.EXE_SPLASH_FILENAME)])
+
     if cfg.ICON_FILENAME:
         arg_list.extend(["-i", utils.to_path(cfg.ASSET_PATH, cfg.IMAGE_PATH, cfg.ICON_FILENAME)])
 
     if cfg.VENV_DIR:
-        arg_list.extend(["-p", os.path.join(cfg.VENV_DIR, "Lib", "site-packages")])
+        arg_list.extend(["-p", utils.to_path(cfg.VENV_DIR, "Lib", "site-packages")])
 
     arg_list.extend([
         "--distpath", distpath,
         "--workpath", workpath
     ])
+
     print(f"INFO: Running command:\n\tpyinstaller {' '.join(arg_list)}")
     PyInstaller.__main__.run(arg_list)
-    print("INFO: Build complete. Running built executable.")
+    print(f"INFO: Build complete. Running built executable at {exe_path}.")
 
-    subprocess.run(os.path.join(distpath, cfg.APPNAME_SIMPLE, cfg.APPNAME_SIMPLE))
+    subprocess.run(exe_path)
 
 
 if __name__ == "__main__":

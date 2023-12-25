@@ -14,6 +14,14 @@ if not hasattr(pygame, "IS_CE"):
 import src.config as cfg
 import src.utilities as utils
 
+# If in executable bundle with splash screen, close it when starting up
+try:
+    import pyi_splash
+    pyi_splash.close()
+
+except ImportError:
+    pass
+
 # Try to prevent display stretching if on Windows, if it doesn't work no big deal
 if platform.system().lower() == "windows":
     try:
