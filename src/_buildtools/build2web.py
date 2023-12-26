@@ -9,19 +9,7 @@ import runpy
 
 import src.config as cfg
 import src.utilities as utils
-
-
-def _ask_yn_question(question):
-    print("")  # Newline to make it a little less claustrophobic
-    answer = None
-    while answer is None:
-        txt = input("  " + question + " (y/n): ")
-        if txt == "y" or txt == "Y":
-            answer = True
-        elif txt == "n" or txt == "N":
-            answer = False
-    print("")
-    return answer
+from .question import yn
 
 
 def make_build(skip_prompts=False):
@@ -32,7 +20,7 @@ def make_build(skip_prompts=False):
 
     if os.path.exists(cfg.WEB_BUNDLE_DIR):
         if not skip_prompts and os.listdir(cfg.WEB_BUNDLE_DIR) \
-                and not _ask_yn_question(f"Bundle destination {cfg.WEB_BUNDLE_DIR} isn't empty, overwrite?"):
+                and not yn(f"Bundle destination {cfg.WEB_BUNDLE_DIR} isn't empty, overwrite?"):
             raise ValueError("Process was cancelled.")
         shutil.rmtree(cfg.WEB_BUNDLE_DIR)
         print(f"INFO: deleted {cfg.WEB_BUNDLE_DIR}")
@@ -55,7 +43,7 @@ def make_build(skip_prompts=False):
     for fpath in sorted(all_files_to_copy):
         print(f"    {fpath}")
     if not skip_prompts and \
-            not _ask_yn_question(f"Continue with these {len(all_files_to_copy)} file(s)?"):
+            not yn(f"Continue with these {len(all_files_to_copy)} file(s)?"):
         raise ValueError("Process was cancelled.")
 
     print(f"INFO: Copying the files to {cfg.WEB_BUNDLE_DIR}...")

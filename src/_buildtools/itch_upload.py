@@ -8,9 +8,17 @@ import platform
 import src.config as cfg
 import src.utilities as utils
 
+import src._buildtools.build2exe as build2exe
+
 if not shutil.which("butler"):
     print("Cannot find butler. Make sure it is installed and included on PATH.")
     sys.exit()
+
+osnames = {
+    "Windows": "windows",
+    "Darwin": "mac",
+    "Linux": "linux"
+}
 
 
 def push(folder, channel: str):
@@ -41,7 +49,7 @@ def push(folder, channel: str):
 
 def main():
     """Push executable and web build."""
-    push(utils.to_path("dist", cfg.APPNAME_SIMPLE), platform.system().lower())
+    push(utils.to_path(build2exe.get_exe_dir()), osnames[platform.system()])
     push(utils.to_path(cfg.WEB_BUNDLE_DIR, "build", "web"), "web")
 
 

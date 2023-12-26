@@ -40,18 +40,22 @@ VENV_DIR = ".venv"
 
 
 # BUILD (EXECUTABLE) #
-EXE_ONEFILE = False
+# Whether to build to a single executable with no dependencies.
+# Set to False to build to a directory (faster start times)
+EXE_ONEFILE = True
 
 # Data to be bundled
 EXE_DATA_TO_BUNDLE = [ASSET_PATH, DATA_PATH]
 
-# TODO: Data to be copied into the build folder (user-accessible)
+# TODO: Data to be copied into the build folder
+# User-accessible, only available when building to a directory
 EXE_DATA_TO_COPY = ["LICENSE.txt"]
 
-# Image to show while executable unpacks itself (only available in onefile mode)
+# Image to show while executable unpacks itself
+# Not available when building to a directory or on Mac
 EXE_SPLASH_FILENAME = "default-splash.png"
 
-EXE_ADDITIONAL_ARGS = ["--noconsole", "--log-level", "WARN", "-n", APPNAME_SIMPLE]
+EXE_ADDITIONAL_ARGS = ["--noconsole", "--log-level", "WARN"]
 
 
 # BUILD (WEB) #
@@ -78,7 +82,7 @@ WEB_ADDITIONAL_ARGS = ["--app_name", APPNAME]
 
 # ITCH UPLOAD WITH BUTLER #
 # Don't actually upload anything, just show what would happen
-UPLOAD_DRY_RUN = False
+UPLOAD_DRY_RUN = True
 
 # Don't actually upload if builds haven't changed
 UPLOAD_ONLY_IF_CHANGED = True
