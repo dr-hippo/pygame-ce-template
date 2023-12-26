@@ -46,8 +46,7 @@ async def main():
     smallfont = utils.load_font("m6x11", size=16)
     font = utils.load_font("m6x11", size=48, align=pygame.FONT_LEFT, underline=True)
     img = utils.load_image("sample", filetype="jpg")
-    # sound = utils.load_sound("sample")
-    # sound.play(loops=4)
+    sound = utils.load_sound("sample")
 
     # Event/update/render loop
     while True:
@@ -55,13 +54,15 @@ async def main():
             pygame.quit()
             return
 
-        pygame.event.get()
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                sound.play()
 
         window.fill("aliceblue")
         window.blit(img, (0, 0))
         utils.render_text(f"FPS: {round(clock.get_fps(), 1)}",
                           smallfont, "black", window, bottomleft=(5, window.get_rect().bottom))
-        utils.render_text("Hello world. This is a Pygame template made by Dr.Hippo.",
+        utils.render_text("Hello world. This is a Pygame template by Dr.Hippo. Press any key to play a sound.",
                           font, "#666666", window, midleft=(220, window.get_rect().centery))
         pygame.display.update()
         await asyncio.sleep(0)

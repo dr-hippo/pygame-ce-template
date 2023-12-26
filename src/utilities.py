@@ -68,12 +68,12 @@ def load_image(*pathparts: str, filetype: str = "png", essential: bool = False) 
             return placeholder
 
 
-def load_sound(*pathparts: str, filetype: str = "mp3", essential: bool = False) -> pygame.mixer.Sound:
+def load_sound(*pathparts: str, filetype: str = "ogg", essential: bool = False) -> pygame.mixer.Sound:
     """
     Loads sound from audio file.
 
     :param pathparts: Subfolders leading to file and filename, local to config.AUDIO_PATH.
-    :param filetype: Audio filetype. Defaults to MP3.
+    :param filetype: Audio filetype. Defaults to OGG, which is Pygbag's only supported filetype.
     :param essential: Whether to raise error when sound is not found or return None.
     :return: Loaded sound
     """
@@ -86,6 +86,9 @@ def load_sound(*pathparts: str, filetype: str = "mp3", essential: bool = False) 
         return sound
 
     except FileNotFoundError as error:
+        if pathparts[-1] == "empty" and filetype == "ogg":
+            raise FileNotFoundError("The fallback sound empty.ogg has been moved or deleted.")
+
         if essential:
             raise error
 
