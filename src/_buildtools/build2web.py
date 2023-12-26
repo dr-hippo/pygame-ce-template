@@ -50,6 +50,7 @@ def make_build(skip_prompts=False):
     for fpath in all_files_to_copy:
         dest_fpath = os.path.join(cfg.WEB_BUNDLE_DIR, fpath)
         os.makedirs(os.path.dirname(dest_fpath), exist_ok=True)
+        # TODO: Convert any audio files to OGG if not already in that format
         shutil.copy(fpath, dest_fpath)
     print(f"INFO: Copied {len(all_files_to_copy)} file(s).")
 

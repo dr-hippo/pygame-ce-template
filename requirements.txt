@@ -1,4 +1,7 @@
-pygame-ce >= 2.3.0
+pygame-ce >= 2.3.2
 platformdirs >= 4.1.0
 pygbag >= 0.8.5
 pyinstaller >= 6.3.0
+
+pillow >= 10.1.0  # Optional, used by PyInstaller to convert icon image to ICO/ICNS
+pydub >= 0.25.1  # Optional, converts all audio files to OGG when building to web
