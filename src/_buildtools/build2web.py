@@ -9,7 +9,7 @@ import runpy
 
 import src.config as cfg
 import src.utilities as utils
-from .question import yn
+from src._buildtools.question import yn
 
 
 def make_build(skip_prompts=False):

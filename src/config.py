@@ -42,7 +42,7 @@ VENV_DIR = ".venv"
 # BUILD (EXECUTABLE) #
 # Whether to build to a single executable with no dependencies.
 # Set to False to build to a directory (faster start times)
-EXE_ONEFILE = True
+EXE_ONEFILE = False
 
 # Data to be bundled
 EXE_DATA_TO_BUNDLE = [ASSET_PATH, DATA_PATH]
@@ -82,7 +82,7 @@ WEB_ADDITIONAL_ARGS = ["--app_name", APPNAME]
 
 # ITCH UPLOAD WITH BUTLER #
 # Don't actually upload anything, just show what would happen
-UPLOAD_DRY_RUN = True
+UPLOAD_DRY_RUN = False
 
 # Don't actually upload if builds haven't changed
 UPLOAD_ONLY_IF_CHANGED = True
