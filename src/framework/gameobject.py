@@ -13,18 +13,21 @@ pygame.init()
 
 class GameObject(Sprite):
     """Base class for a visible object in a scene."""
-    def __init__(self, scene: Scene, groups: Union[Group, Sequence[Group]] = ()):
+    def __init__(self, image_path: str,
+                 position: Union[Vector2, Sequence[float]],
+                 pivot: Union[str, Sequence[float]] = "center",
+                 rotation: float = 0.0,
+                 scene: Scene = None, groups: Union[Group, Sequence[Group]] = ()):
         super().__init__(*groups)
         self.scene = scene
-        self.dt = 0
+        # self.image =
+        # self.rect =
+        self.position = Vector2(position)
+        self.game = self.scene.game
 
-    def update(self, dt: float):
-        """
-        Advances this gameobject by the given deltatime.
-
-        :param dt: Time since last update, in seconds.
-        """
-        self.dt = dt
+    def update(self):
+        """Call this function every frame update."""
+        pass
 
     def render(self, window):
         """
