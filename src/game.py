@@ -14,6 +14,8 @@ if not hasattr(pygame, "IS_CE"):
 import src.config as cfg
 import src.utilities as utils
 
+from framework import GameState
+
 # If in executable bundle with splash screen, close it when starting up
 try:
     import pyi_splash
@@ -32,21 +34,24 @@ if platform.system().lower() == "windows":
 
 # Initialisation
 pygame.init()
+
+
+# Some systems don't allow changing window title/icon after set_mode, so set these before that
 pygame.display.set_caption(f"{cfg.APPNAME} - {cfg.AUTHOR}")
+
 if cfg.ICON_FILENAME:
-    pygame.display.set_icon(pygame.image.load(utils.to_path(cfg.ASSET_PATH, cfg.IMAGE_PATH, cfg.ICON_FILENAME)))
+    icon_img = pygame.image.load(utils.to_path(cfg.ASSET_PATH, cfg.IMAGE_PATH, cfg.ICON_FILENAME))
+    pygame.display.set_icon(icon_img)
+
 display_flags = pygame.SCALED if sys.platform == "emscripten" else pygame.RESIZABLE | pygame.SCALED
 window = pygame.display.set_mode(cfg.RESOLUTION, display_flags)
 clock = pygame.time.Clock()
+global_state = GameState(cfg.STARTING_SCENE())
 
 
 async def main():
     """Main game function."""
-    global window, clock
-    smallfont = utils.load_font("m6x11", size=16)
-    font = utils.load_font("m6x11", size=48, align=pygame.FONT_LEFT, underline=True)
-    img = utils.load_image("sample", filetype="jpg")
-    sound = utils.load_sound("sample")
+    global window, clock, global_state
 
     # Event/update/render loop
     while True:
@@ -55,18 +60,13 @@ async def main():
             return
 
         for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                sound.play()
+            global_state.current_scene.on_event(event)
 
-        window.fill("aliceblue")
-        window.blit(img, (0, 0))
-        utils.render_text(f"FPS: {round(clock.get_fps(), 1)}",
-                          smallfont, "black", window, bottomleft=(5, window.get_rect().bottom))
-        utils.render_text("Hello world. This is a Pygame template by Dr.Hippo. Press any key to play a sound.",
-                          font, "#666666", window, midleft=(220, window.get_rect().centery))
+        global_state.current_scene.update()
         pygame.display.update()
+        global_state.current_scene.render(window)
         await asyncio.sleep(0)
-        clock.tick(cfg.TARGET_FPS)
+        global_state.unscaled_dt = clock.tick(cfg.TARGET_FPS) / 1000
 
 
 if __name__ == "__main__":

@@ -7,17 +7,19 @@ pygame.init()
 
 
 class Scene:
-    """A screen/location in-game. Should be inherited from."""
+    """A screen/location in-game. Should be inherited from.
+
+    __init__(): Executed on start.
+    update(): Executed every frame.
+    on_event(): Executed every event.
+    render(): Executed every frame after update.
+    """
     def __init__(self):
-        self.dt = 0
+        pass
 
-    def update(self, dt: float):
-        """
-        Advances this scene by the given deltatime.
-
-        :param dt: Time since last update, in seconds.
-        """
-        self.dt = dt
+    def update(self):
+        """Call this function every frame update."""
+        pass
 
     def on_event(self, event: pygame.Event):
         """

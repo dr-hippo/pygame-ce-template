@@ -1,6 +1,7 @@
 """Configuration file."""
 
 from pygame import Rect, Vector2
+from src.scenes.test import TestScene
 
 
 # GENERAL #
@@ -19,6 +20,10 @@ AUTHOR_SIMPLE = "DrHippo"
 # VISUAL #
 RESOLUTION = Vector2(640, 360)
 TARGET_FPS = 120
+
+
+# SCENES #
+STARTING_SCENE = TestScene
 
 
 # DIRECTORY NAMES #
