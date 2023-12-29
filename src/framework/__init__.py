@@ -2,6 +2,8 @@
 
 from .scene import Scene
 from .gameobject import GameObject
+from .gamestate import GameState
 
 Scene = Scene
 GameObject = GameObject
+GameState = GameState
