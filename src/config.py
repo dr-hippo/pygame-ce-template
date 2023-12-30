@@ -2,6 +2,7 @@
 
 from pygame import Rect, Vector2
 from src.scenes.test import TestScene
+from src.framework import Scene
 
 
 # GENERAL #
@@ -23,7 +24,7 @@ TARGET_FPS = 120
 
 
 # SCENES #
-STARTING_SCENE = TestScene
+STARTING_SCENE: type[Scene] = TestScene
 
 
 # DIRECTORY NAMES #

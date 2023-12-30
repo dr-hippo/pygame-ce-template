@@ -12,11 +12,11 @@ class GameState:
         """
         self.unscaled_dt = 0
         self.timescale = 1
-        self.current_scene = None
+        self.current_scene = starting_scene
         self.player_data = None
         self.player_settings = None
 
-        self.load_scene(starting_scene)
+        self.reload_scene()
 
     @property
     def dt(self):
@@ -25,3 +25,6 @@ class GameState:
     def load_scene(self, scene: Scene):
         self.current_scene = scene
         self.current_scene.game = self
+
+    def reload_scene(self):
+        self.load_scene(type(self.current_scene)())

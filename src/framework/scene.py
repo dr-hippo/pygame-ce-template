@@ -8,14 +8,10 @@ pygame.init()
 
 class Scene:
     """A screen/location in-game. Should be inherited from.
-
-    __init__(): Executed on start.
-    update(): Executed every frame.
-    on_event(): Executed every event.
-    render(): Executed every frame after update.
+    Parameter 'game' only needs to be set if not using GameState.load_scene()
     """
-    def __init__(self):
-        pass
+    def __init__(self, game: 'GameState' = None):
+        self.game = game
 
     def update(self):
         """Call this function every frame update."""
