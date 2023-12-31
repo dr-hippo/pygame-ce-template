@@ -7,11 +7,9 @@ pygame.init()
 
 
 class Scene:
-    """A screen/location in-game. Should be inherited from.
-    Parameter 'game' only needs to be set if not using GameState.load_scene()
-    """
-    def __init__(self, game: 'GameState' = None):
-        self.game = game
+    """Superclass for in-game screens/locations."""
+    def __init__(self):
+        pass
 
     def update(self):
         """Call this function every frame update."""

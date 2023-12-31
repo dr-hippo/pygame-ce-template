@@ -1,30 +1,28 @@
+"""Global mutable state of the game. Developer settings fixed at runtime go in src/config.py."""
+
 import pygame
 
 from src.framework import Scene, GameObject
+import src.config as cfg
 
 
-class GameState:
-    def __init__(self, starting_scene: Scene):
-        """
-        Object encapsulating global game state.
+class Time:
+    unscaled_dt = 0  # In seconds
+    timescale = 1
 
-        :param starting_scene: Scene to load on game start.
-        """
-        self.unscaled_dt = 0
-        self.timescale = 1
-        self.current_scene = starting_scene
-        self.player_data = None
-        self.player_settings = None
-
-        self.reload_scene()
-
+    @classmethod
     @property
-    def dt(self):
-        return self.unscaled_dt * self.timescale
+    def dt(cls) -> float:
+        """Time elapsed, in seconds, since last frame update."""
+        return cls.unscaled_dt * cls.timescale
 
-    def load_scene(self, scene: Scene):
-        self.current_scene = scene
-        self.current_scene.game = self
 
-    def reload_scene(self):
-        self.load_scene(type(self.current_scene)())
+current_scene: Scene = None
+player_data = None
+player_settings = None
+
+
+def init():
+    """Initialises the game's internal state."""
+    global current_scene
+    current_scene = cfg.STARTING_SCENE()

@@ -4,7 +4,9 @@ import pygame
 
 import src.config as cfg
 import src.utilities as utils
-from framework import Scene
+from framework import Scene, gamestate
+
+pygame.init()
 
 
 class TestScene(Scene):
@@ -25,7 +27,7 @@ class TestScene(Scene):
     def render(self, window):
         window.fill("aliceblue")
         window.blit(self.img, (0, 0))
-        utils.render_text(f"Deltatime: {self.game.dt}",
+        utils.render_text(f"Deltatime: {gamestate.Time.dt}",
                           self.smallfont, "black", window, bottomleft=(5, window.get_rect().bottom))
         utils.render_text("Hello world. This is a Pygame template by Dr.Hippo. Click to play a sound.",
                           self.font, "#666666", window, midleft=(220, window.get_rect().centery))

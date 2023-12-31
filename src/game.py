@@ -14,7 +14,8 @@ if not hasattr(pygame, "IS_CE"):
 import src.config as cfg
 import src.utilities as utils
 
-from framework import GameState
+from framework import gamestate
+
 
 # If in executable bundle with splash screen, close it when starting up
 try:
@@ -46,12 +47,13 @@ if cfg.ICON_FILENAME:
 display_flags = pygame.SCALED if sys.platform == "emscripten" else pygame.RESIZABLE | pygame.SCALED
 window = pygame.display.set_mode(cfg.RESOLUTION, display_flags)
 clock = pygame.time.Clock()
-global_state = GameState(cfg.STARTING_SCENE())
 
 
 async def main():
     """Main game function."""
-    global window, clock, global_state
+    global window, clock
+
+    gamestate.init()
 
     # Event/update/render loop
     while True:
@@ -60,13 +62,13 @@ async def main():
             return
 
         for event in pygame.event.get():
-            global_state.current_scene.on_event(event)
+            gamestate.current_scene.on_event(event)
 
-        global_state.current_scene.update()
+        gamestate.current_scene.update()
         pygame.display.update()
-        global_state.current_scene.render(window)
+        gamestate.current_scene.render(window)
         await asyncio.sleep(0)
-        global_state.unscaled_dt = clock.tick(cfg.TARGET_FPS) / 1000
+        gamestate.Time.unscaled_dt = clock.tick(cfg.TARGET_FPS) / 1000
 
 
 if __name__ == "__main__":
