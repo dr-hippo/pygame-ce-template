@@ -67,6 +67,10 @@ async def main():
         gamestate.current_scene.update()
         pygame.display.update()
         gamestate.current_scene.render(window)
+
+        if cfg.SHOW_FPS:
+            pygame.display.set_caption(f"{cfg.APPNAME} - {cfg.AUTHOR} - FPS: {round(clock.get_fps(), 1)}")
+
         await asyncio.sleep(0)
         gamestate.Time.unscaled_dt = clock.tick(cfg.TARGET_FPS) / 1000
 

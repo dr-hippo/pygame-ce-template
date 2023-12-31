@@ -23,6 +23,10 @@ RESOLUTION = Vector2(640, 360)
 TARGET_FPS = 120
 
 
+# DEBUG #
+SHOW_FPS = True
+
+
 # SCENES #
 STARTING_SCENE: type[Scene] = TestScene
 
