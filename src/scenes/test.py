@@ -1,5 +1,7 @@
 """Test scene."""
 
+from typing import Optional
+
 import pygame
 
 import src.config as cfg
@@ -16,6 +18,7 @@ class TestScene(Scene):
         self.font = utils.load_font("m6x11", size=48, align=pygame.FONT_LEFT, underline=True)
         self.img = utils.load_image("sample", filetype="jpg")
         self.sound = utils.load_sound("sample")
+        self.last_click_pos: Optional[pygame.Vector2] = None
 
     def update(self):
         pass
@@ -23,9 +26,11 @@ class TestScene(Scene):
     def on_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.sound.play()
+            self.last_click_pos = event.pos
 
     def render(self, window):
-        debug_info = "Deltatime: {}s\nTotal time: {:.1f}s".format(
+        debug_info = "Click position: {}\nDeltatime: {}s\nTotal time: {:.1f}s".format(
+            self.last_click_pos,
             gamestate.Time.dt,
             self.time
         )

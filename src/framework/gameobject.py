@@ -23,7 +23,6 @@ class GameObject(Sprite):
         # self.image =
         # self.rect =
         self.position = Vector2(position)
-        self.game = self.scene.game
 
     def update(self):
         """Call this function every frame update."""
