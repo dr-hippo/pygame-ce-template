@@ -25,9 +25,12 @@ class TestScene(Scene):
             self.sound.play()
 
     def render(self, window):
+        debug_info = "Deltatime: {}s\nTotal time: {:.1f}s".format(
+            gamestate.Time.dt,
+            self.time
+        )
         window.fill("aliceblue")
         window.blit(self.img, (0, 0))
-        utils.render_text(f"Deltatime: {gamestate.Time.dt}",
-                          self.smallfont, "black", window, bottomleft=(5, window.get_rect().bottom))
+        utils.render_text(debug_info, self.smallfont, "black", window, bottomleft=(5, window.get_rect().bottom))
         utils.render_text("Hello world. This is a Pygame template by Dr.Hippo. Click to play a sound.",
                           self.font, "#666666", window, midleft=(220, window.get_rect().centery))

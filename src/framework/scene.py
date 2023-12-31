@@ -1,5 +1,7 @@
 """Script containing scene base class and some subclasses."""
 
+import time
+
 import pygame
 from pygame import Rect, Vector2
 
@@ -9,7 +11,7 @@ pygame.init()
 class Scene:
     """Superclass for in-game screens/locations."""
     def __init__(self):
-        pass
+        self.INIT_TIME = time.time()
 
     def update(self):
         """Call this function every frame update."""
@@ -30,3 +32,8 @@ class Scene:
         :param window: Window to render to.
         """
         pass
+
+    @property
+    def time(self) -> float:
+        """Time elapsed, in seconds, since this scene was loaded."""
+        return time.time() - self.INIT_TIME
