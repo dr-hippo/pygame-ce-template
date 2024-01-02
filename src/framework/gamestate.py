@@ -2,7 +2,7 @@
 
 import pygame
 
-from src.framework import Scene, GameObject
+from src.framework import Scene, Entity
 import src.config as cfg
 
 

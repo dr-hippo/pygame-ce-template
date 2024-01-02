@@ -7,11 +7,12 @@ from pygame import Rect, Vector2
 from pygame.sprite import Sprite, Group
 
 from framework.scene import Scene
+import src.utilities as utils
 
 pygame.init()
 
 
-class GameObject(Sprite):
+class Entity(Sprite):
     """Base class for a visible object in a scene."""
     def __init__(self, image_path: str,
                  position: Union[Vector2, Sequence[float]],

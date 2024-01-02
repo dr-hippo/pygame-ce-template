@@ -1,7 +1,7 @@
 """Structural classes for game states and objects."""
 
 from .scene import Scene
-from .gameobject import GameObject
+from .entity import Entity
 
 Scene = Scene
-GameObject = GameObject
+Entity = Entity
