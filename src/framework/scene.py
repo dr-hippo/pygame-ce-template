@@ -37,3 +37,9 @@ class Scene:
     def time(self) -> float:
         """Time elapsed, in seconds, since this scene was loaded."""
         return time.time() - self.INIT_TIME
+
+    def spawn(self, entity_type: type['Entity'], *args, **kwargs) -> 'Entity':
+        """Instantiate a new entity of entity_type with the specified positional and keyword arguments."""
+        entity = entity_type(*args, **kwargs)
+        entity.scene = self
+        return entity

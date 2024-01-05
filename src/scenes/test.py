@@ -6,7 +6,7 @@ import pygame
 
 import src.config as cfg
 import src.utilities as utils
-from framework import Scene, gamestate
+from framework import Scene, gamestate, Entity
 
 pygame.init()
 
@@ -19,6 +19,7 @@ class TestScene(Scene):
         self.img = utils.load_image("sample", filetype="jpg")
         self.sound = utils.load_sound("sample")
         self.last_click_pos: Optional[pygame.Vector2] = None
+        self.test_ent = self.spawn(Entity, "testent.png", (0, 0))
 
     def update(self):
         pass
