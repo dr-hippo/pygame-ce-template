@@ -1,4 +1,4 @@
-"""Main game."""
+"""Main game script with initialisation code and main loop."""
 
 import asyncio
 import ctypes
@@ -37,8 +37,7 @@ if platform.system().lower() == "windows":
 # Initialisation
 pygame.init()
 
-
-# Some systems don't allow changing window title/icon after set_mode, so set these before that
+# Some operating systems don't allow changing the window's caption/icon, so set them before calling set_mode()
 pygame.display.set_caption(f"{cfg.APPNAME} - {cfg.AUTHOR}")
 
 if cfg.ICON_FILENAME:
@@ -66,10 +65,10 @@ async def main():
             gamestate.current_scene.on_event(event)
 
         gamestate.current_scene.update()
-        pygame.display.update()
         gamestate.current_scene.render(window)
+        pygame.display.update()
 
-        if cfg.SHOW_FPS:
+        if cfg.SHOW_FPS and sys.platform != "emscripten":
             pygame.display.set_caption(f"{cfg.APPNAME} - {cfg.AUTHOR} - FPS: {round(clock.get_fps(), 1)}")
 
         await asyncio.sleep(0)
