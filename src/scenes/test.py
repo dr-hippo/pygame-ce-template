@@ -31,7 +31,7 @@ class TestScene(Scene):
     def render(self, window):
         debug_info = "Click position: {}\nDeltatime: {}s\nTotal time: {:.1f}s".format(
             self.last_click_pos,
-            gamestate.Time.dt,
+            gamestate.Time.get_dt(),
             self.time
         )
         window.fill("aliceblue")

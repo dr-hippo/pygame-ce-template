@@ -1,7 +1,13 @@
 """Global mutable state of the game. Developer settings fixed at runtime go in src/config.py."""
 
+from typing import Optional
+
 import src.config as cfg
 from src.framework import Scene, PlayerData, PlayerSettings
+
+current_scene: Optional[Scene] = None
+player_data = PlayerData()
+player_settings = PlayerSettings()
 
 
 class Time:
@@ -9,15 +15,9 @@ class Time:
     timescale = 1
 
     @classmethod
-    @property
-    def dt(cls) -> float:
+    def get_dt(cls) -> float:
         """Time elapsed, in seconds, since last frame update."""
         return cls.unscaled_dt * cls.timescale
-
-
-current_scene: Scene = None
-player_data = PlayerData()
-player_settings = PlayerSettings()
 
 
 def init():
