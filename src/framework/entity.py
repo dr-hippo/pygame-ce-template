@@ -3,11 +3,10 @@
 from typing import Sequence, Union
 
 import pygame
-from pygame import Rect, Vector2
+from pygame import Vector2
 from pygame.sprite import Sprite, Group
 
-from framework.scene import Scene
-import src.utilities as utils
+from .scene import Scene
 
 pygame.init()
 

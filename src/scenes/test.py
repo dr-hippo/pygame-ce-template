@@ -4,9 +4,8 @@ from typing import Optional
 
 import pygame
 
-import src.config as cfg
 import src.utilities as utils
-from framework import Scene, gamestate, Entity
+from src.framework import Scene, gamestate, Entity
 
 pygame.init()
 

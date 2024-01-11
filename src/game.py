@@ -1,9 +1,9 @@
 """Main game."""
 
-import sys
-import platform
-import ctypes
 import asyncio
+import ctypes
+import platform
+import sys
 
 import pygame
 
@@ -14,7 +14,7 @@ if not hasattr(pygame, "IS_CE"):
 import src.config as cfg
 import src.utilities as utils
 
-from framework import gamestate
+from src.framework import gamestate
 
 
 # If in executable bundle with splash screen, close it when starting up
