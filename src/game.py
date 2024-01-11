@@ -19,6 +19,7 @@ from src.framework import gamestate
 
 # If in executable bundle with splash screen, close it when starting up
 try:
+    # noinspection PyUnresolvedReferences
     import pyi_splash
     pyi_splash.close()
 

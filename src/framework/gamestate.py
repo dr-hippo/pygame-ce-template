@@ -1,9 +1,7 @@
 """Global mutable state of the game. Developer settings fixed at runtime go in src/config.py."""
 
-import pygame
-
-from src.framework import Scene, Entity
 import src.config as cfg
+from src.framework import Scene, PlayerData, PlayerSettings
 
 
 class Time:
@@ -18,11 +16,11 @@ class Time:
 
 
 current_scene: Scene = None
-player_data = None
-player_settings = None
+player_data = PlayerData()
+player_settings = PlayerSettings()
 
 
 def init():
-    """Initialises the game's internal state."""
+    """Initialises the game's internal state. Must be called after initialising Pygame."""
     global current_scene
     current_scene = cfg.STARTING_SCENE()
