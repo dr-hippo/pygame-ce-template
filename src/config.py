@@ -1,9 +1,9 @@
 """Configuration file."""
 
-from pygame import Rect, Vector2
-from src.scenes.test import TestScene
-from src.framework import Scene
+from pygame import Vector2
 
+from src.framework import Scene
+from src.scenes.test import TestScene
 
 # GENERAL #
 APPNAME = "Pygame-CE Template"
@@ -71,8 +71,8 @@ EXE_ADDITIONAL_ARGS = ["--noconsole", "--log-level", "WARN"]
 # BUILD (WEB) #
 WEB_INCLUDE_GLOBS = [
     "main.py",
-    f"{ASSET_PATH}/**/*",
-    f"{DATA_PATH}/**/*",
+    ASSET_PATH + "/**/*",
+    DATA_PATH + "/**/*",
     "src/**/*.py"
 ]
 
@@ -87,7 +87,12 @@ WEB_TEMPLATE = "src/_buildtools/web-template.tmpl"
 # The actual "build" will end up in BUNDLE_DIR/build/web
 WEB_BUNDLE_DIR = "build/web"
 
-WEB_ADDITIONAL_ARGS = ["--app_name", APPNAME]
+WEB_ADDITIONAL_ARGS = [
+    "--app_name", APPNAME,
+    "--title", APPNAME,
+    "--ume_block", "0",  # Require user interaction to start game
+    "--can_close", "1"  # Closes window without dialogue (recommended as alert dialogues cause sound to jam)
+]
 
 
 # ITCH UPLOAD WITH BUTLER #
