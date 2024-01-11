@@ -5,13 +5,15 @@ Basic [pygame-ce](https://pyga.me) template with prewritten boilerplate, useful 
 Intended for use in game jams.
 
 ## Features:
-- Scene/Gameobject system (TODO)
-- Game state save/load (TODO)
+- Highly configurable from `src/config.py`
+- Scene/Entity system (TODO)
+- Data/Settings save/load (TODO)
 - Utilities script: (TODO)
-  - Image, sound, and font loading functions
-  - Image and audio caching functions (TODO) 
-  - Text rendering function
-- Premade build scripts for building to executable/play-in-browser bundle (with [PyInstaller](https://pyinstaller.org)/[Pygbag](https://pypi.org/project/pygbag))
+  - Image, sound, and font loading
+  - Image and audio caching (TODO) 
+  - Basic text rendering
+- Premade build scripts for building to executable/play-in-browser bundle 
+with [PyInstaller](https://pyinstaller.org)/[Pygbag](https://pypi.org/project/pygbag)
 - Fast uploading to [itch.io](https://itch.io) with [butler](https://itchio.itch.io/butler)
 
 ## Workflow:

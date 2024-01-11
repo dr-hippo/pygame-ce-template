@@ -1,10 +1,11 @@
 """Script with useful functions for loading and caching different types of assets."""
 
-import sys
 import os
+import sys
 from typing import Union, Sequence
 
 import pygame
+from pygame import Vector2
 
 import src.config as cfg
 
@@ -15,6 +16,7 @@ def rootdir() -> str:
     """Get root directory whether running normally, in executable or in browser."""
     if getattr(sys, 'frozen', False):  # PyInstaller adds this attribute
         # Running in a PyInstaller bundle
+        # noinspection PyProtectedMember
         return sys._MEIPASS
 
     elif sys.platform == "emscripten":
@@ -63,7 +65,7 @@ def load_image(*pathparts: str, filetype: str = "png", essential: bool = False) 
 
         else:
             # Return placeholder magenta surface
-            placeholder = pygame.surface.Surface((32, 32))
+            placeholder = pygame.surface.Surface(Vector2(32, 32))
             placeholder.fill("#ff00ff")
             return placeholder
 
