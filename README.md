@@ -27,8 +27,10 @@ with [PyInstaller](https://pyinstaller.org)/[Pygbag](https://pypi.org/project/py
 1. TODO
 
 ### Building
-1. Run `src/_buildtools/build2exe.py` to build to an executable in `/dist`
-2. Run `src/_buildtools/build2web.py` to build to a play-in-browser package in `/build/web/build/web`
+1. Navigate to the project's root folder
+2. Run `python -m src._buildtools.build2exe` to build to an executable in `/dist`
+3. Run `python -m src._buildtools.build2web` to build to a play-in-browser package in `/build/web/build/web`
+4. Instead of typing these commands, you can set up run configurations in IDEs such as PyCharm to make building more convenient
 
 ### Uploading to itch.io (optional)
 1. [Register](https://itch.io/register) or [login](https://itch.io/login) to an itch.io account
