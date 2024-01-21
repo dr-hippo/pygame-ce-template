@@ -1,26 +1,17 @@
 """Script to automate PyInstaller building."""
 
 import os
+import struct
+import subprocess
 
 import PyInstaller.__main__
-import subprocess
-import platform
-import struct
 
 import src.config as cfg
 import src.utilities as utils
 
-_WIN, _MAC, _LINUX = "Windows", "Darwin", "Linux"  # platform.system return values
-
-osnames = {
-    "Windows": "Win",
-    "Darwin": "MacOS",
-    "Linux": "Linux"
-}
-
 fileexts = {
-    "Windows": ".exe",
-    "Darwin": ".app",
+    "Win": ".exe",
+    "MacOS": ".app",
     "Linux": ""
 }
 
@@ -29,7 +20,7 @@ def get_exe_name() -> str:
     """Generate unique file/folder name for the executable, including system and word size info."""
     return "{}_{}{}bit".format(
         cfg.APPNAME_SIMPLE,  # Base name of executable
-        osnames[platform.system()],  # OS name
+        utils.get_platform(),  # OS name
         struct.calcsize('P') * 8  # Bit count of system
     )
 
@@ -37,10 +28,10 @@ def get_exe_name() -> str:
 def get_exe_path() -> str:
     """Get the path of the built executable local to utilities.rootdir()."""
     if cfg.EXE_ONEFILE:
-        return os.path.join("dist", get_exe_name() + fileexts[platform.system()])
+        return os.path.join("dist", get_exe_name() + fileexts[utils.get_platform()])
 
     else:
-        return os.path.join("dist", get_exe_name(), get_exe_name() + fileexts[platform.system()])
+        return os.path.join("dist", get_exe_name(), get_exe_name() + fileexts[utils.get_platform()])
 
 
 def get_exe_dir() -> str:
@@ -48,7 +39,7 @@ def get_exe_dir() -> str:
     or the executable itself for one-file builds, local to utilities.rootdir()."""
 
     if cfg.EXE_ONEFILE:
-        return os.path.join("dist", get_exe_name() + fileexts[platform.system()])
+        return os.path.join("dist", get_exe_name() + fileexts[utils.get_platform()])
 
     else:
         return os.path.join("dist", get_exe_name())
@@ -66,13 +57,13 @@ def make_build():
     if cfg.BUILD_NOPROMPTS:
         arg_list.append("-y")
 
-    # Apparently only onefile builds work on Mac
-    if cfg.EXE_ONEFILE or platform.system() == _MAC:
+    # Apparently only onefile builds work on MacOS
+    if cfg.EXE_ONEFILE or utils.get_platform() == "MacOS":
         arg_list.append("-F")
 
         # Enabling splash screen in directory mode makes window start unfocused, so only enable it in onefile mode
-        # Splash screen doesn't work on Mac
-        if cfg.EXE_SPLASH_FILENAME and platform.system() != _MAC:
+        # Splash screen doesn't work on MacOS
+        if cfg.EXE_SPLASH_FILENAME and utils.get_platform() != "MacOS":
             arg_list.extend(["--splash", utils.to_path(cfg.ASSET_PATH, cfg.IMAGE_PATH, cfg.EXE_SPLASH_FILENAME)])
 
     if cfg.ICON_FILENAME:
@@ -84,10 +75,7 @@ def make_build():
     arg_list.extend([
         "--distpath", utils.to_path("dist"),
         "--workpath", utils.to_path("build"),
-        "--specpath", utils.rootdir()
-    ])
-
-    arg_list.extend([
+        "--specpath", utils.rootdir(),
         "-n", get_exe_name()
     ])
 

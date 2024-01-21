@@ -1,6 +1,5 @@
 """Uses butler to upload built files to itch. Requires butler being installed and user being logged in."""
 
-import platform
 import shutil
 import subprocess
 import sys
@@ -12,12 +11,6 @@ import src.utilities as utils
 if not shutil.which("butler"):
     print("Cannot find butler. Make sure it is installed and included on PATH.")
     sys.exit()
-
-osnames = {
-    "Windows": "windows",
-    "Darwin": "mac",
-    "Linux": "linux"
-}
 
 
 def push(folder, channel: str):
@@ -32,6 +25,7 @@ def push(folder, channel: str):
     project = cfg.APPNAME_SIMPLE.lower()
     print(f"INFO: Pushing to {user}.itch.io/{project} channel {channel}")
 
+    # Command is "butler push folder user/game:channel --other_args"
     arg_list = ["butler", "push", folder, user + "/" + project + ":" + channel]
 
     arg_list.extend(["--userversion", cfg.VERSION])
@@ -42,13 +36,12 @@ def push(folder, channel: str):
     if cfg.UPLOAD_ONLY_IF_CHANGED:
         arg_list.append("--if-changed")
 
-    # Command is "butler push folder user/game:channel"
     subprocess.run(arg_list)
 
 
 def main():
     """Push executable and web build."""
-    push(utils.to_path(build2exe.get_exe_dir()), osnames[platform.system()])
+    push(utils.to_path(build2exe.get_exe_dir()), utils.get_platform().lower())
     push(utils.to_path(cfg.WEB_BUNDLE_DIR, "build", "web"), "web")
 
 

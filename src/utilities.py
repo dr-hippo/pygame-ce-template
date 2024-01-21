@@ -1,6 +1,7 @@
 """Script with useful functions for loading and caching different types of assets."""
 
 import os
+import platform
 import sys
 from typing import Union, Sequence
 
@@ -12,14 +13,35 @@ import src.config as cfg
 pygame.init()
 
 
+def get_platform() -> str:
+    """Gets the platform game is running on. ('Win', 'MacOS', 'Linux', 'Web', or 'Other')
+
+    :return: Human-readable platform identifier which is valid for filenames."""
+
+    _platform_dict = {
+        "Windows": "Win",
+        "Darwin": "MacOS",
+        "Linux": "Linux"
+    }
+
+    if sys.platform == "emscripten":
+        return "Web"
+
+    return _platform_dict.get(platform.system(), "Other")
+
+
+def in_native_bundle() -> bool:
+    """Checks whether code is running in a PyInstaller bundle."""
+    return getattr(sys, 'frozen', False)  # PyInstaller adds this attribute
+
+
 def rootdir() -> str:
     """Get root directory whether running normally, in executable or in browser."""
-    if getattr(sys, 'frozen', False):  # PyInstaller adds this attribute
-        # Running in a PyInstaller bundle
+    if in_native_bundle():
         # noinspection PyProtectedMember
         return sys._MEIPASS
 
-    elif sys.platform == "emscripten":
+    if get_platform() == "web":
         # Running in a Pygbag bundle
         return ""
 

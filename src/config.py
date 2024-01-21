@@ -77,11 +77,11 @@ WEB_INCLUDE_GLOBS = [
 ]
 
 WEB_EXCLUDE_GLOBS = [
-    "assets/images/default-splash.png"  # Splash screen image is only used in one-file executable builds
+    f"{ASSET_PATH}/{IMAGE_PATH}/default-splash.png"  # Splash screen image is only used in one-file executable builds
 ]
 
 # Web export template modified from https://github.com/pygame-web/archives/blob/main/0.8/default.tmpl
-WEB_TEMPLATE = "src/_buildtools/web-template.tmpl"
+WEB_TEMPLATE = "bundle/web-template.tmpl"
 
 # Note that any preexisting contents of this directory will be deleted, so be careful.
 # The actual "build" will end up in BUNDLE_DIR/build/web

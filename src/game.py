@@ -2,7 +2,6 @@
 
 import asyncio
 import ctypes
-import platform
 import sys
 
 import pygame
@@ -27,7 +26,7 @@ except ImportError:
     pass
 
 # Try to prevent display stretching if on Windows, if it doesn't work no big deal
-if platform.system().lower() == "windows":
+if utils.get_platform() == "Win":
     try:
         ctypes.windll.user32.SetProcessDPIAware()
 
@@ -44,7 +43,7 @@ if cfg.ICON_FILENAME:
     icon_img = pygame.image.load(utils.to_path(cfg.ASSET_PATH, cfg.IMAGE_PATH, cfg.ICON_FILENAME))
     pygame.display.set_icon(icon_img)
 
-display_flags = pygame.SCALED if sys.platform == "emscripten" else pygame.RESIZABLE | pygame.SCALED
+display_flags = pygame.SCALED if utils.get_platform() == "Web" else pygame.RESIZABLE | pygame.SCALED
 window = pygame.display.set_mode(cfg.RESOLUTION, display_flags)
 clock = pygame.time.Clock()
 
