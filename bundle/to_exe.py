@@ -18,8 +18,9 @@ fileexts = {
 
 def get_exe_name() -> str:
     """Generate unique file/folder name for the executable, including system and word size info."""
-    return "{}_{}{}bit".format(
-        cfg.APPNAME_SIMPLE,  # Base name of executable
+    return "{}_{}_{}{}bit".format(
+        cfg.APPNAME_SIMPLE,  # Base game name
+        cfg.VERSION,
         utils.get_platform(),  # OS name
         struct.calcsize('P') * 8  # Bit count of system
     )
