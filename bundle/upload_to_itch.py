@@ -1,14 +1,13 @@
 """Uses butler to upload built files to itch. Requires butler being installed and user being logged in."""
 
-import sys
-import subprocess
-import shutil
 import platform
+import shutil
+import subprocess
+import sys
 
+import bundle.to_exe as build2exe
 import src.config as cfg
 import src.utilities as utils
-
-import src._buildtools.build2exe as build2exe
 
 if not shutil.which("butler"):
     print("Cannot find butler. Make sure it is installed and included on PATH.")

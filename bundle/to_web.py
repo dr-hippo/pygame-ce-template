@@ -1,15 +1,15 @@
 """Script to automate Pygbag building.
 Modified from https://github.com/davidpendergast/dimensions/blob/main/make_web_bundle.py."""
 
-import os
-import sys
-import shutil
 import glob
+import os
 import runpy
+import shutil
+import sys
 
 import src.config as cfg
 import src.utilities as utils
-from src._buildtools.question import yn
+from bundle.question import yn
 
 
 def make_build(skip_prompts=False):

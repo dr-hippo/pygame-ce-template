@@ -77,7 +77,6 @@ WEB_INCLUDE_GLOBS = [
 ]
 
 WEB_EXCLUDE_GLOBS = [
-    "src/_buildtools/**/*",
     "assets/images/default-splash.png"  # Splash screen image is only used in one-file executable builds
 ]
 

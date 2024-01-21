@@ -28,8 +28,8 @@ with [PyInstaller](https://pyinstaller.org)/[Pygbag](https://pypi.org/project/py
 
 ### Building
 1. Navigate to the project's root folder
-2. Run `python -m src._buildtools.build2exe` to build to an executable in `/dist`
-3. Run `python -m src._buildtools.build2web` to build to a play-in-browser package in `/build/web/build/web`
+2. Run `python -m bundle.to_exe` to build to an executable in `/dist`
+3. Run `python -m bundle.to_web` to build to a play-in-browser package in `/build/web/build/web`
 4. Instead of typing these commands, you can set up run configurations in IDEs such as PyCharm to make building more convenient
 
 ### Uploading to itch.io (optional)
@@ -37,5 +37,5 @@ with [PyInstaller](https://pyinstaller.org)/[Pygbag](https://pypi.org/project/py
 2. [Create a new project](https://itch.io/game/new)
 3. Install [butler](https://itchio.itch.io/butler) and add its folder to PATH
 4. On the command line, login to butler with your itch account
-5. Run `src/_buildtools/itch_upload.py` to upload built files to itch.io
+5. Run `python -m bundle.upload_to_itch` to upload built files to itch.io
 6. Customise your page
