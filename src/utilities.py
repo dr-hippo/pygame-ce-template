@@ -3,6 +3,7 @@
 import os
 import platform
 import sys
+from pathlib import Path
 from typing import Union, Sequence
 
 import pygame
@@ -18,14 +19,14 @@ def get_platform() -> str:
 
     :return: Human-readable platform identifier which is valid for filenames."""
 
+    if sys.platform == "emscripten":
+        return "Web"
+
     _platform_dict = {
         "Windows": "Win",
         "Darwin": "MacOS",
         "Linux": "Linux"
     }
-
-    if sys.platform == "emscripten":
-        return "Web"
 
     return _platform_dict.get(platform.system(), "Other")
 
@@ -38,15 +39,15 @@ def in_native_bundle() -> bool:
 def rootdir() -> str:
     """Get root directory whether running normally, in executable or in browser."""
     if in_native_bundle():
-        # noinspection PyProtectedMember
+        # noinspection PyProtectedMember, PyUnresolvedReferences
         return sys._MEIPASS
 
-    if get_platform() == "web":
+    if get_platform() == "Web":
         # Running in a Pygbag bundle
         return ""
 
-    # Otherwise, this is running in normal python environment, so make sure to go one level up, out of /src
-    return os.path.dirname(os.path.dirname(__file__))
+    # Otherwise, this is running in a normal python environment, so make sure to go one level up, out of /src
+    return str(Path(__file__).parent.parent)
 
 
 def to_path(*parts: str) -> str:
@@ -56,7 +57,7 @@ def to_path(*parts: str) -> str:
     :param parts: Parts of the path to be joined, i.e. subfolders and filename.
     :return: Processed path
     """
-    return os.path.join(rootdir(), *parts)
+    return str(Path(rootdir(), *parts))
 
 
 # TODO: add caching functions
@@ -69,9 +70,7 @@ def load_image(*pathparts: str, filetype: str = "png", essential: bool = False) 
     :param essential: Whether to raise error when image is not found or return placeholder surface.
     :return: Loaded surface
     """
-    subfolders = os.path.join(cfg.ASSET_PATH, cfg.IMAGE_PATH, *pathparts[:-1])
-    name = pathparts[-1] + os.extsep + filetype
-    fullpath = to_path(subfolders, name)
+    fullpath = to_path(cfg.ASSET_PATH, cfg.IMAGE_PATH, *pathparts[:-1], pathparts[-1] + os.extsep + filetype)
 
     try:
         image = pygame.image.load(fullpath)
@@ -97,13 +96,11 @@ def load_sound(*pathparts: str, filetype: str = "ogg", essential: bool = False) 
     Loads sound from audio file.
 
     :param pathparts: Subfolders leading to file and filename, local to config.AUDIO_PATH.
-    :param filetype: Audio filetype. Defaults to OGG, which is Pygbag's only supported filetype.
+    :param filetype: Audio filetype. Defaults to OGG, which is the only audio filetype Pygbag supports.
     :param essential: Whether to raise error when sound is not found or return None.
     :return: Loaded sound
     """
-    subfolders = os.path.join(cfg.ASSET_PATH, cfg.AUDIO_PATH, *pathparts[:-1])
-    name = pathparts[-1] + os.extsep + filetype
-    fullpath = to_path(subfolders, name)
+    fullpath = to_path(cfg.ASSET_PATH, cfg.AUDIO_PATH, *pathparts[:-1], pathparts[-1] + os.extsep + filetype)
 
     try:
         sound = pygame.mixer.Sound(fullpath)
@@ -135,9 +132,7 @@ def load_font(*pathparts: str, filetype: str = "ttf", size: int = 16, essential:
     :return: Loaded font
     """
     if pathparts[-1]:
-        subfolders = os.path.join(cfg.ASSET_PATH, cfg.FONT_PATH, *pathparts[:-1])
-        name = pathparts[-1] + os.extsep + filetype
-        fullpath = to_path(subfolders, name)
+        fullpath = to_path(cfg.ASSET_PATH, cfg.FONT_PATH, *pathparts[:-1], pathparts[-1] + os.extsep + filetype)
 
     else:
         fullpath = None
@@ -156,7 +151,9 @@ def load_font(*pathparts: str, filetype: str = "ttf", size: int = 16, essential:
     finally:
         # Set style attributes
         for key in styleattrs:
+            # noinspection PyUnboundLocalVariable
             setattr(font, key, styleattrs[key])
+
         return font
 
 
