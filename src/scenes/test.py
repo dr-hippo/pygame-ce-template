@@ -35,7 +35,7 @@ class TestScene(Scene):
 
     def render(self, window):
         window.fill("aliceblue")
-        window.blit(self.img, (0, 0))
+        window.blit(self.img, pygame.Vector2(0, 0))
         utils.render_text(self.debug_info, self.smallfont, "black", window, bottomleft=(5, window.get_rect().bottom))
         utils.render_text("Hello world. This is a Pygame template by Dr.Hippo. Click to play a sound.",
                           self.font, "#666666", window, midleft=(220, window.get_rect().centery))

@@ -10,7 +10,8 @@ player_settings = PlayerSettings()
 
 
 class Time:
-    unscaled_dt = 0  # In seconds
+    """Static wrapper class for time functions/variables. Time is counted in seconds (unlike in pygame-ce)."""
+    unscaled_dt = 0
     timescale = 1
 
     @classmethod

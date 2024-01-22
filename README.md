@@ -4,7 +4,7 @@ Basic [pygame-ce](https://pyga.me) template with prewritten boilerplate, useful 
 
 Intended for use in game jams.
 
-## Features:
+## Features
 - Highly configurable from `src/config.py`
 - Scene/Entity system (TODO)
 - Data/Settings save/load (TODO)
@@ -16,21 +16,21 @@ Intended for use in game jams.
 with [PyInstaller](https://pyinstaller.org)/[Pygbag](https://pypi.org/project/pygbag)
 - Fast uploading to [itch.io](https://itch.io) with [butler](https://itchio.itch.io/butler)
 
-## Workflow:
-### Setup:
-1. Create new repo from this template and clone to your computer
-2. Create virtual environment (Build script assumes folder is called `.venv`)
-3. Install required dependencies with pip (`python -m pip install -r requirements.txt`)
+## Workflow
+### Setup
+1. Create a new repo from this template and clone to your computer
+2. Create a virtual environment (Build script assumes folder is called `.venv`)
+3. Install required dependencies with `python -m pip install -r requirements.txt`
 4. Change settings in `src/config.py` if needed
 
 ### Programming
 1. TODO
 
 ### Building
-1. Navigate to the project's root folder
+1. Navigate to your project's root folder
 2. Run `python -m bundle.to_exe` to build to an executable in `/dist`
 3. Run `python -m bundle.to_web` to build to a play-in-browser package in `/build/web/build/web`
-4. Instead of typing these commands, you can set up run configurations in IDEs such as PyCharm to make building more convenient
+4. Instead of typing these commands, you can write batch/shell scripts or set up run configurations in IDEs such as PyCharm to make building more convenient
 
 ### Uploading to itch.io (optional)
 1. [Register](https://itch.io/register) or [login](https://itch.io/login) to an itch.io account
