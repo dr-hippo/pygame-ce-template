@@ -1,11 +1,10 @@
 """Global mutable state of the game. Developer settings fixed at runtime go in src/config.py."""
 
-from typing import Optional
-
 import src.config as cfg
-from src.framework import Scene, PlayerData, PlayerSettings
+from src.framework.playerdata import PlayerData
+from src.framework.playersettings import PlayerSettings
 
-current_scene: Optional[Scene] = None
+current_scene = None
 player_data = PlayerData()
 player_settings = PlayerSettings()
 

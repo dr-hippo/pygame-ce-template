@@ -6,23 +6,23 @@ import pygame
 from pygame import Vector2
 from pygame.sprite import Sprite, Group
 
-from .scene import Scene
+from src.framework import gamestate
 
 pygame.init()
 
 
 class Entity(Sprite):
     """Base class for a visible object in a scene."""
-    def __init__(self, image_path: str,
+    def __init__(self, image: pygame.Surface,
                  position: Union[Vector2, Sequence[float]],
                  pivot: Union[str, Sequence[float]] = "center",
                  rotation: float = 0.0,
-                 scene: Scene = None, groups: Union[Group, Sequence[Group]] = ()):
-        """Instantiate an entity. Scene only need to be set if not using Scene.spawn()."""
+                 groups: Union[Group, Sequence[Group]] = ()):
+        """Instantiate an entity."""
         super().__init__(*groups)
-        self.scene = scene
-        # self.image =
-        # self.rect =
+        self.scene = gamestate.current_scene
+        self.image = image
+        self.rect = self.image.get_rect()
         self.position = Vector2(position)
 
         self._pivot_dict = {
@@ -37,6 +37,10 @@ class Entity(Sprite):
             "bottomright": (1, 1),
         }
         self.pivot = Vector2(self._pivot_dict[pivot] if type(pivot) == str else pivot)
+
+        # Set rect to correct position
+        self.rect.topleft = Vector2(self.position.x - self.pivot.x * self.rect.w,
+                                    self.position.y - self.pivot.y * self.rect.h)
 
     def update(self):
         """Call this function every frame update."""

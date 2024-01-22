@@ -18,7 +18,7 @@ class TestScene(Scene):
         self.img = utils.load_image("sample", filetype="jpg")
         self.sound = utils.load_sound("sample")
         self.last_click_pos: Optional[pygame.Vector2] = None
-        self.test_ent = self.spawn(Entity, "testent.png", (0, 0))
+        self.test_ent = Entity(utils.load_image("testent"), (50, 50))
 
     def update(self):
         pass
