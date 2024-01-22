@@ -19,9 +19,14 @@ class TestScene(Scene):
         self.sound = utils.load_sound("sample")
         self.last_click_pos: Optional[pygame.Vector2] = None
         self.test_ent = Entity(utils.load_image("testent"), (50, 50))
+        self.debug_info = ""
 
     def update(self):
-        pass
+        self.debug_info = "Click position: {}\nDeltatime: {}s\nTotal time: {:.1f}s".format(
+            self.last_click_pos,
+            gamestate.Time.get_dt(),
+            self.time
+        )
 
     def on_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -29,13 +34,8 @@ class TestScene(Scene):
             self.last_click_pos = event.pos
 
     def render(self, window):
-        debug_info = "Click position: {}\nDeltatime: {}s\nTotal time: {:.1f}s".format(
-            self.last_click_pos,
-            gamestate.Time.get_dt(),
-            self.time
-        )
         window.fill("aliceblue")
         window.blit(self.img, (0, 0))
-        utils.render_text(debug_info, self.smallfont, "black", window, bottomleft=(5, window.get_rect().bottom))
+        utils.render_text(self.debug_info, self.smallfont, "black", window, bottomleft=(5, window.get_rect().bottom))
         utils.render_text("Hello world. This is a Pygame template by Dr.Hippo. Click to play a sound.",
                           self.font, "#666666", window, midleft=(220, window.get_rect().centery))
